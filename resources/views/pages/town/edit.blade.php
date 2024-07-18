@@ -15,15 +15,15 @@
           </div>
         </div>
         <div class="card-body px-4 pb-2">
-            <h5>Give User Informarion...</h5>
+            <h5>Give Project Informarion...</h5>
             <form role="form" method="POST" action="{{ route('town-management.update',$town->id) }}" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="row">
                     <div class="form-group col-12 p-3">
-                        <label>Town*</label>
+                        <label>Project*</label>
                         <input type="text" class="form-control border-bottom border-1 border-dark"
-                        placeholder="Enter Town Here..." name="town" required  value="{{ old('town',$town->town) }}"/>
+                        placeholder="Enter Project Here..." name="town" required  value="{{ old('town',$town->town) }}"/>
                     </div>
                     <select name="district_id" class="select2-multiple form-control fs-14  h-50px" required>
                         @foreach ($district as $row)

@@ -8,7 +8,7 @@
         <div class="w-100 mb-4 d-flex">
             <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="{{ URL('admin/home') }}">
                 <span class="avatar avatar-sm mt-2">
-                    <img src="{{ asset('assets/images/unnamed.png') }}" class="avatar-img rounded-circle w-50"/>
+                    <img src="{{ asset('assets/images/kwssip.png') }}" class="avatar-img w-50"/>
                       {{-- <img src="../dist/assets/avatars/face-1.jpg" alt="..." class="avatar-img rounded-circle"> --}}
                   </span>
         {{-- <img src="{{ asset('assets/images/unnamed.png') }}" class="avatar-img rounded-circle w-100"/> --}}
@@ -62,7 +62,7 @@
                         </a>
                     </li>
                     <li class="nav-item @if (Route::is('town-management.index')) active @endif">
-                        <a class="nav-link" href="{{ url('admin/town-management') }}"><span class="ml-1 item-text">Town Management</span>
+                        <a class="nav-link" href="{{ url('admin/town-management') }}"><span class="ml-1 item-text">Project Managemnt</span>
                         </a>
                     </li>
                     <li class="nav-item @if (Route::is('districts.index')) active @endif">
@@ -70,7 +70,7 @@
                         </a>
                     </li>
                     <li class="nav-item @if (Route::is('subtown-management.index')) active @endif">
-                        <a class="nav-link" href="{{ url('admin/subtown-management') }}"><span class="ml-1 item-text">SubTown Management</span>
+                        <a class="nav-link" href="{{ url('admin/subtown-management') }}"><span class="ml-1 item-text"> PL Management</span>
                         </a>
                     </li>
                 </ul>

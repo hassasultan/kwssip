@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="card-body px-4 pb-2">
-                    <h5>Give Town Informarion...</h5>
+                    <h5>Give Project Informarion...</h5>
                     <form role="form" method="POST" action="{{ route('town-management.store') }}"
                         enctype="multipart/form-data">
                         @csrf
@@ -29,9 +29,9 @@
                                 </select>
                             </div>
                             <div class="form-group col-12 p-3">
-                                <label>Town*</label>
+                                <label>Project*</label>
                                 <input type="text" class="form-control border-bottom border-1 border-dark"
-                                placeholder="Enter Town Here..." name="town" required  value="{{ old('town') }}"/>
+                                placeholder="Enter Project Here..." name="town" required  value="{{ old('town') }}"/>
                             </div>
                             {{-- <div class="form-group col-12 p-3">
                                 <label>Sub Town*</label>

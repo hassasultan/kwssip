@@ -16,7 +16,7 @@
         <div class="row justify-content-center">
             <div class="col-12">
                 {{-- @include('layouts.include.toolbar') --}}
-                <h2 class="page-title">Town Management</h2>
+                <h2 class="page-title">Project Management</h2>
                 <p> Tables with built-in bootstrap styles </p>
                 <div class="col-12 text-right">
                     <a class="btn btn-primary" href="{{ route('town-management.create') }}">add</i>&nbsp;&nbsp;<i
@@ -28,7 +28,7 @@
                             <div class="card-body">
                                 <div class="card-title">
                                     <h5>
-                                        Town List
+                                        Project List
                                     </h5>
                                     <p class="card-text">With supporting text below as a natural lead-in to additional
                                         content.</p>
@@ -51,7 +51,7 @@
                                         <table class="table table-borderless table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th>Town</th>
+                                                    <th>Project</th>
                                                     <th>District</th>
                                                     <th>Action</th>
                                                 </tr>

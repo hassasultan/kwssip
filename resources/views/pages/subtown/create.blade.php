@@ -8,19 +8,19 @@
                     <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                         <div class="row">
                             <div class="col-6">
-                                <h6 class="text-white text-capitalize ps-3">Add SubTown</h6>
+                                <h6 class="text-white text-capitalize ps-3">Add Project Location</h6>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-body px-4 pb-2">
-                    <h5>Give Sub Town Informarion...</h5>
+                    <h5>Give Project Location Informarion...</h5>
                     <form role="form" method="POST" action="{{ route('subtown-management.store') }}"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="form-group col-12 p-3">
-                                <label>Select Town*</label>
+                                <label>Select Project*</label>
                                 <select name="town_id" class="select2-multiple form-control fs-14  h-50px" required>
                                     @foreach ($town as $row)
                                         <option value="{{ $row->id }}">{{ $row->town }}
@@ -29,7 +29,7 @@
                                 </select>
                             </div>
                             <div class="form-group col-12 p-3">
-                                <label>SubTown*</label>
+                                <label>Project Location*</label>
                                 <input type="text" class="form-control border-bottom border-1 border-dark"
                                 placeholder="Enter Town Here..." name="title" required  value="{{ old('title') }}"/>
                             </div>
