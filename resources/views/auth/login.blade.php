@@ -6,6 +6,7 @@
     @csrf
     <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="{{ route('login') }}">
         <img src="{{ asset('assets/images/kwssip.png') }}" width="300px"/>
+        <br/>
         <img src="{{ asset('assets/images/unnamed.png') }}" width="50px"/>
         {{-- <svg version="1.1" id="logo" class="navbar-brand-img brand-md" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120" xml:space="preserve">
             <g>
