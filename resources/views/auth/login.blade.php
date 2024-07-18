@@ -41,7 +41,7 @@
         </label>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Let me in</button>
-    <p class="mt-5 mb-3 text-dark"><strong>© 2024 & Product By</strong> <img src="{{ asset('assets/images/unnamed.png') }}" width="40px"/></p>
+    <p class="mt-5 mb-3 text-dark"><strong>© 2024 - 2025 & Product By</strong> <img src="{{ asset('assets/images/unnamed.png') }}" width="40px"/></p>
 </form>
 
 @endsection
