@@ -78,7 +78,7 @@
                                 {{-- <i class="fas fa-file icon"></i> --}}
                                 {{-- <i class="fas fa-plus-circle icon"></i> --}}
                                 <img src="{{ asset('assets/images/add-file-color.png') }}" style="width: 80px;"/>
-                                <p class="card-text mt-3">Add New Complaint</p>
+                                <p class="card-text mt-3">Add Complaint</p>
                             </div>
                         </div>
                     </a>
