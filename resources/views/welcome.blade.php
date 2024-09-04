@@ -157,55 +157,70 @@
         .w-80 {
             max-width: 80%;
         }
+        .bg-main-page
+        {
+            background: #02abe9;
+        }
     </style>
     <div id="app" class="wrapper">
         <div class="container-fluid">
-            <div class="bg-dark col-12 mt-3 make-header desktop-header">
+            <div class="bg-main-page col-12 mt-3 make-header desktop-header">
                 {{-- <div class="container"> --}}
                 <div class="row">
                     <div class="col-md-3">
-                        <img src="{{ asset('assets/images/unnamed.png') }}" class="img-fluid" alt="main_logo"
-                            style="width: 130px; margin-top:-30px;">
+                        <img src="{{ asset('assets/images/kwssip.png') }}" class="img-fluid" alt="main_logo"
+                            style="width: 200px; margin-top:14px;">
                     </div>
-                    <div class="col-md-6 pt-3">
-                        <h5 class="fs-1 text-white">COMPLAINT REDRESSAL MECHANISM
-                            <br />
-                            <span style="font-size: 0.8rem">KW&SC |
-                                {{ \Carbon\Carbon::now()->format('d F Y') }}</span>
+                    <div class="col-md-7 pt-3">
+                        <h5 class="text-white" style="font-size: 1.8rem; margin-bottom:0% !important;">GRIEVANCE REDRESSAL MECHANISM
                         </h5>
+                        <span class="text-white" style="font-size: 0.8rem">KWSSIP |
+                            {{ \Carbon\Carbon::now()->format('d F Y') }}</span>
                     </div>
-                    <div class="col-md-3 pt-3">
-                        <div id="google_translate_element"></div>
-                        <a target="_blank" class="btn btn-link text-white font-weight-bolder"
-                            href="./#googtrans(en|en)">English</a>
-                        <a target="_blank" class="btn btn-link text-white font-weight-bolder"
-                            href="./#googtrans(en|ur)">Urdu</a>
+                    <div class="col-md-1  text-right border-right mt-3">
+                        <img src="{{ asset('assets/images/sg.png') }}" class="img-fluid" alt="main_logo"
+                        style="width: 40px;">
+                    </div>
+                    <div class="col-md-1  text-left border-left mt-3">
+                        <img src="{{ asset('assets/images/unnamed.png') }}" class="img-fluid" alt="main_logo"
+                        style="width: 50px;">
                     </div>
                 </div>
                 {{-- </div> --}}
             </div>
-            <div class="bg-dark col-12 mt-3 make-header mobile-header">
+            <div class="bg-main-page col-12 mt-3 make-header mobile-header">
                 {{-- <div class="container-fluid"> --}}
                 <div class="mobile-row">
-                    <div class="w-20">
-                        <img src="{{ asset('assets/images/unnamed.png') }}" class="img-fluid" alt="main_logo"
-                            style="width: 180px;">
-                    </div>
                     <div class="w-80 pt-3 pl-2">
-                        <h5 class="mobile-heading text-white">COMPLAINT REDRESSAL MECHANISM
+                        <img src="{{ asset('assets/images/kwssip.png') }}" class="img-fluid" alt="main_logo"
+                            style="width: 180px;">
+                        <h5 class="mobile-heading text-white">GRIEVANCE REDRESSAL MECHANISM
                             <br />
-                            <span style="font-size: 0.6rem">KW&SC |
+                            <span style="font-size: 0.6rem">KWSSIP |
                                 {{ \Carbon\Carbon::now()->format('d F Y') }}</span>
                         </h5>
                     </div>
+                    <div class="w-20 pt-3 pl-2">
+                        <div class="row">
+                            <div class="col-md-6 text-right pr-1">
+                                <img src="{{ asset('assets/images/sg.png') }}" class="img-fluid" alt="main_logo"
+                                style="width: 30px;">
+                            </div>
+                            <div class="col-md-6 text-right pr-0">
+                                <img src="{{ asset('assets/images/unnamed.png') }}" class="img-fluid" alt="main_logo"
+                                style="width: 40px;">
+                            </div>
+                        </div>
+                    
+                    </div>
                 </div>
-                <div class="w-100 text-right">
+                {{-- <div class="w-100 text-right">
                     <div id="google_translate_element"></div>
                     <a target="_blank" class="btn btn-link text-white font-weight-bolder"
                         href="./#googtrans(en|en)">English</a>
                     <a target="_blank" class="btn btn-link text-white font-weight-bolder"
                         href="./#googtrans(en|ur)">Urdu</a>
-                </div>
+                </div> --}}
                 {{-- </div> --}}
             </div>
         </div>
@@ -300,13 +315,13 @@
                                     <div class="col-12 card-body " style="background-color: #f8f8f8;">
                                         {{-- <h5>Complaint Informarion...</h5> --}}
                                         <div class="row">
-                                            <div class="form-group col-md-3 p-3">
+                                            {{-- <div class="form-group col-md-3 p-3">
                                                 <label>Consumer # on BILL </label>
                                                 <input type="text"
                                                     class="form-control border-bottom border-1 border-dark"
                                                     placeholder="Enter Consumer Number Here..." name="customer_num"
                                                     value="{{ old('customer_num') }}" />
-                                            </div>
+                                            </div> --}}
                                             <div class="form-group col-md-3 p-3">
                                                 <label>Applicant Name<span class="item-required">*</span></label>
                                                 <input type="text"
@@ -330,10 +345,10 @@
                                                     value="{{ old('email') }}" />
                                             </div>
                                             <div class="form-group col-md-3 p-3">
-                                                <label>Select Town<span class="item-required">*</span></label>
+                                                <label>Select Project<span class="item-required">*</span></label>
                                                 <select name="town_id" id="town_id"
                                                     class="form-control select2 border-dark" required>
-                                                    <option selected disabled>-- Select Town --</option>
+                                                    <option selected disabled>-- Select Project --</option>
                                                     @foreach ($town as $row)
                                                         <option value="{{ $row->id }}">{{ $row->town }}
 
@@ -346,10 +361,10 @@
                                                 @endif
                                             </div>
                                             <div class="form-group col-md-3 p-3">
-                                                <label>Select UC / Mohalla<span class="item-required">*</span></label>
+                                                <label>Select Project Location<span class="item-required">*</span></label>
                                                 <select name="sub_town_id" id="sub_town_id"
                                                     class="form-control select2 border-dark" required>
-                                                    <option selected disabled>-- Select UC / Mohalla --</option>
+                                                    <option selected disabled>-- Select Project Location --</option>
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-3 p-3">
@@ -369,11 +384,11 @@
                                             </div>
 
                                             <div class="form-group col-md-3 p-3">
-                                                <label>Select Complaint Type<span
+                                                <label>Select Grievance Type<span
                                                         class="item-required">*</span></label>
                                                 <select name="type_id" id="type_id"
                                                     class="form-control select2 border-dark" required>
-                                                    <option selected disabled>-- Select Complaint Type --</option>
+                                                    <option selected disabled>-- Select Grievance Type --</option>
 
                                                     @foreach ($type as $row)
                                                         <option value="{{ $row->id }}">{{ $row->title }}
@@ -382,7 +397,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-3 p-3">
-                                                <label>Select Grivence<span class="item-required">*</span></label>
+                                                <label>Select Grievance<span class="item-required">*</span></label>
                                                 <select name="subtype_id" id="subtype_id"
                                                     class="form-control select2 border-dark" required>
                                                     <option selected disabled>-- Select Grivence --</option>

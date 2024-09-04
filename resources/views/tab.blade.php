@@ -181,45 +181,61 @@
         .w-80 {
             max-width: 80%;
         }
+        .bg-main-page
+        {
+            background: #02abe9;
+        }
     </style>
     <div id="app" class="wrapper">
         <div class="container-fluid">
-            <div class="bg-dark col-12 mt-3 make-header desktop-header">
+            <div class="bg-main-page col-12 mt-3 make-header desktop-header">
                 {{-- <div class="container"> --}}
                 <div class="row">
                     <div class="col-md-3">
                         <img src="{{ asset('assets/images/kwssip.png') }}" class="img-fluid" alt="main_logo"
-                            style="width: 130px; margin-top:-30px;">
+                            style="width: 200px; margin-top:14px;">
                     </div>
-                    <div class="col-md-9 pt-3">
+                    <div class="col-md-7 pt-3">
                         <h5 class="text-white" style="font-size: 1.8rem; margin-bottom:0% !important;">GRIEVANCE REDRESSAL MECHANISM
                         </h5>
                         <span class="text-white" style="font-size: 0.8rem">KWSSIP |
                             {{ \Carbon\Carbon::now()->format('d F Y') }}</span>
                     </div>
-                    {{-- <div class="col-md-3 pt-3">
-                        <div id="google_translate_element"></div>
-                        <a target="_blank" class="btn btn-link text-white font-weight-bolder"
-                            href="./#googtrans(en|en)">English</a>
-                        <a target="_blank" class="btn btn-link text-white font-weight-bolder"
-                            href="./#googtrans(en|ur)">Urdu</a>
-                    </div> --}}
+                    <div class="col-md-1  text-right border-right mt-3">
+                        <img src="{{ asset('assets/images/sg.png') }}" class="img-fluid" alt="main_logo"
+                        style="width: 40px;">
+                    </div>
+                    <div class="col-md-1  text-left border-left mt-3">
+                        <img src="{{ asset('assets/images/unnamed.png') }}" class="img-fluid" alt="main_logo"
+                        style="width: 50px;">
+                    </div>
                 </div>
                 {{-- </div> --}}
             </div>
-            <div class="bg-dark col-12 mt-3 make-header mobile-header">
+            <div class="bg-main-page col-12 mt-3 make-header mobile-header">
                 {{-- <div class="container-fluid"> --}}
                 <div class="mobile-row">
-                    <div class="w-20">
+                    <div class="w-80 pt-3 pl-2">
                         <img src="{{ asset('assets/images/kwssip.png') }}" class="img-fluid" alt="main_logo"
                             style="width: 180px;">
-                    </div>
-                    <div class="w-80 pt-3 pl-2">
                         <h5 class="mobile-heading text-white">GRIEVANCE REDRESSAL MECHANISM
                             <br />
                             <span style="font-size: 0.6rem">KWSSIP |
                                 {{ \Carbon\Carbon::now()->format('d F Y') }}</span>
                         </h5>
+                    </div>
+                    <div class="w-20 pt-3 pl-2">
+                        <div class="row">
+                            <div class="col-md-6 text-right pr-1">
+                                <img src="{{ asset('assets/images/sg.png') }}" class="img-fluid" alt="main_logo"
+                                style="width: 30px;">
+                            </div>
+                            <div class="col-md-6 text-right pr-0">
+                                <img src="{{ asset('assets/images/unnamed.png') }}" class="img-fluid" alt="main_logo"
+                                style="width: 40px;">
+                            </div>
+                        </div>
+                    
                     </div>
                 </div>
                 {{-- <div class="w-100 text-right">
