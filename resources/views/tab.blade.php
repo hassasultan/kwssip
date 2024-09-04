@@ -188,13 +188,13 @@
                 {{-- <div class="container"> --}}
                 <div class="row">
                     <div class="col-md-3">
-                        <img src="{{ asset('assets/images/unnamed.png') }}" class="img-fluid" alt="main_logo"
+                        <img src="{{ asset('assets/images/kwssip.png') }}" class="img-fluid" alt="main_logo"
                             style="width: 130px; margin-top:-30px;">
                     </div>
                     <div class="col-md-9 pt-3">
-                        <h5 class="text-white" style="font-size: 1.8rem; margin-bottom:0% !important;">COMPLAINT REDRESSAL MECHANISM
+                        <h5 class="text-white" style="font-size: 1.8rem; margin-bottom:0% !important;">GRIEVANCE REDRESSAL MECHANISM
                         </h5>
-                        <span class="text-white" style="font-size: 0.8rem">KW&SC |
+                        <span class="text-white" style="font-size: 0.8rem">KWSSIP |
                             {{ \Carbon\Carbon::now()->format('d F Y') }}</span>
                     </div>
                     {{-- <div class="col-md-3 pt-3">
@@ -211,13 +211,13 @@
                 {{-- <div class="container-fluid"> --}}
                 <div class="mobile-row">
                     <div class="w-20">
-                        <img src="{{ asset('assets/images/unnamed.png') }}" class="img-fluid" alt="main_logo"
+                        <img src="{{ asset('assets/images/kwssip.png') }}" class="img-fluid" alt="main_logo"
                             style="width: 180px;">
                     </div>
                     <div class="w-80 pt-3 pl-2">
-                        <h5 class="mobile-heading text-white">COMPLAINT REDRESSAL MECHANISM
+                        <h5 class="mobile-heading text-white">GRIEVANCE REDRESSAL MECHANISM
                             <br />
-                            <span style="font-size: 0.6rem">KW&SC |
+                            <span style="font-size: 0.6rem">KWSSIP |
                                 {{ \Carbon\Carbon::now()->format('d F Y') }}</span>
                         </h5>
                     </div>
