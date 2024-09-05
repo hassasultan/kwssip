@@ -74,7 +74,7 @@ class ComplaintController extends Controller
         $valid = $this->validator($request->all());
         if ($valid->valid()) {
             $data = $request->all();
-            $prefix = "COMPLAINT-";
+            $prefix = "GRIEVANCE-";
             $CompNum = IdGenerator::generate(['table' => 'complaint', 'field' => 'comp_num', 'length' => 14, 'prefix' => $prefix]);
             $data['comp_num'] = $CompNum;
             if ($request->has('image') && $request->image != NULL) {
