@@ -122,7 +122,7 @@
                             <div class="row mt-1 align-items-center">
                                 <div class="col-12 col-lg-4 text-left pl-4">
                                     <p class="mb-1 small text-muted">New</p>
-                                    <span class="h3">KWSC</span>
+                                    <span class="h3">KWSSIP</span>
                                     <span class="small text-muted">+100%</span>
                                     <span class="fe fe-arrow-up text-success fe-12"></span>
                                     <p class="text-muted mt-2">
