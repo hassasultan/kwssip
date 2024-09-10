@@ -66,7 +66,14 @@ class MobileAgentController extends Controller
                 $data['avatar'] = $this->MobileAgentImage($request->avatar);
             }
             MobileAgent::create($data);
-            return redirect()->route('agent-management.index')->with('success', 'Record created successfully.');
+            if(auth()->user()->role == 1)
+            {
+                return redirect()->route('admin.agent-management.index')->with('success', 'Record created successfully.');
+            }
+            else
+            {
+                return redirect()->route('system.agent-management.index')->with('success', 'Record created successfully.');
+            }
 
         }
         else
@@ -116,7 +123,14 @@ class MobileAgentController extends Controller
                 $data['avatar'] = $this->MobileAgentImage($request->avatar);
             }
             MobileAgent::where('id',$id)->update($data);
-            return redirect()->route('agent-management.index')->with('success', 'Record created successfully.');
+            if(auth()->user()->role == 1)
+            {
+                return redirect()->route('admin.agent-management.index')->with('success', 'Record created successfully.');
+            }
+            else
+            {
+                return redirect()->route('system.agent-management.index')->with('success', 'Record created successfully.');
+            }
 
         }
         else

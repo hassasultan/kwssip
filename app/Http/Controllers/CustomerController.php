@@ -32,7 +32,14 @@ class CustomerController extends Controller
         $data = $request->all();
         $data["customer_id"] = random_int(1, 9999999);
         Customer::create($data);
-        return redirect()->route('customer-management.index')->with('success', 'Record created successfully.');
+        if(auth()->user()->role == 1)
+        {
+            return redirect()->route('admin.customer-management.index')->with('success', 'Record created successfully.');
+        }
+        else
+        {
+            return redirect()->route('system.customer-management.index')->with('success', 'Record created successfully.');
+        }
 
     }
     public function edit($id)
@@ -44,7 +51,14 @@ class CustomerController extends Controller
     {
         $data = $request->except(['_method','_token']);
         Customer::where('id',$id)->update($data);
-        return redirect()->route('customer-management.index')->with('success', 'Record updated successfully.');
+        if(auth()->user()->role == 1)
+        {
+            return redirect()->route('admin.customer-management.index')->with('success', 'Record updated successfully.');
+        }
+        else
+        {
+            return redirect()->route('system.customer-management.index')->with('success', 'Record updated successfully.');
+        }
 
 
     }

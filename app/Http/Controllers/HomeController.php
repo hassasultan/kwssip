@@ -33,6 +33,18 @@ class HomeController extends Controller
         $complaintsPending = Complaints::where('status',0)->count();
         $complaintsComplete = Complaints::where('status',1)->count();
         $total_customer = Customer::count();
+        if(auth()->user()->role == 3)
+        {
+            $totalComplaints = Complaints::with('assignedComplaints')->whereHas('assignedComplaints',function($query){
+                $query->where('agent_id',auth()->user()->agent->id);
+            })->count();
+            $complaintsPending = Complaints::with('assignedComplaints')->whereHas('assignedComplaints',function($query){
+                $query->where('agent_id',auth()->user()->agent->id);
+            })->where('status',0)->count();
+            $complaintsComplete = Complaints::with('assignedComplaints')->whereHas('assignedComplaints',function($query){
+                $query->where('agent_id',auth()->user()->agent->id);
+            })->where('status',1)->count();
+        }
         $result[0] = ['Clicks','Viewers'];
         $result[1] = ['Pending',$complaintsPending];
         $result[2] = ['Complete',$complaintsComplete];
@@ -40,6 +52,7 @@ class HomeController extends Controller
         $new_town = Town::with('comp_type','comp_type.complaints','complaints')->get();
         $resultNew[0] = ['Clicks','Viewers'];
         $town = Town::get('town');
+
         foreach($town as $row)
         {
             array_push($allTown,$row->town);
@@ -133,7 +146,11 @@ class HomeController extends Controller
         //     $typeComp[$key]['data'] = [(int)count($row->complaints)];
         // }
         // dd($typeComp);
-
+        if(auth()->user()->role == 3)
+        {
+            
+            return view('agent_dashboard.home',compact('complaintsComplete','totalComplaints','complaintsPending'));
+        }
         return view('home',compact('complaintsComplete','totalComplaints','totalAgents','allTown','typeComp_town','typeComp','total_customer','complaintsPending'));
     }
 }

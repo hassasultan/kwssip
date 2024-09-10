@@ -36,7 +36,14 @@ class ComplaintTypeController extends Controller
     public function store(Request $request)
     {
         ComplaintType::create($request->all());
-        return redirect()->route('compaints-type-management.index')->with('success', 'Record created successfully.');
+        if(auth()->user()->role == 1)
+        {
+            return redirect()->route('compaints-type-management.index')->with('success', 'Record created successfully.');
+        }
+        else
+        {
+            return redirect()->route('compaints-type-management.index')->with('success', 'Record created successfully.');
+        }
 
     }
     public function edit($id)
@@ -48,7 +55,14 @@ class ComplaintTypeController extends Controller
     {
         $data = $request->except(['_method','_token']);
         ComplaintType::where('id',$id)->update($data);
-        return redirect()->route('compaints-type-management.index')->with('success', 'Record created successfully.');
+        if(auth()->user()->role == 1)
+        {
+            return redirect()->route('admin.compaints-type-management.index')->with('success', 'Record created successfully.');
+        }
+        else
+        {
+            return redirect()->route('system.compaints-type-management.index')->with('success', 'Record created successfully.');
+        }
 
 
     }

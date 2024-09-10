@@ -47,7 +47,16 @@ class SubTownController extends Controller
         {
             $data = $request->all();
             SubTown::create($data);
-            return redirect()->route('subtown-management.index')->with('success', 'Record created successfully.');
+            if(auth()->user()->role == 1)
+            {
+                return redirect()->route('admin.subtown-management.index')->with('success', 'Record created successfully.');
+                
+            }
+            else
+            {
+                return redirect()->route('system.subtown-management.index')->with('success', 'Record created successfully.');
+                
+            }
         }
         else
         {
@@ -68,7 +77,16 @@ class SubTownController extends Controller
         {
             $data = $request->except(['_method','_token']);
             SubTown::where('id',$id)->update($data);
-            return redirect()->route('subtown-management.index')->with('success', 'Record updated successfully.');
+            if(auth()->user()->role == 1)
+            {
+                return redirect()->route('admin.subtown-management.index')->with('success', 'Record updated successfully.');
+                
+            }
+            else
+            {
+                return redirect()->route('system.subtown-management.index')->with('success', 'Record updated successfully.');
+                
+            }
 
         }
         else

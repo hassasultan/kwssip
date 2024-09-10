@@ -44,44 +44,53 @@ Auth::routes();
 Route::prefix('/admin')->group(function (){
     Route::middleware(['IsAdmin'])->group(function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        Route::resource('/user-management', UserController::class);
-        Route::resource('/agent-management', MobileAgentController::class);
-        Route::get('/agent-management/details/{id}',[MobileAgentController::class,'detail'])->name('agent-management.details');
+        Route::resource('/user-management', UserController::class, ['as' => 'admin']);
+        Route::resource('/agent-management', MobileAgentController::class, ['as' => 'admin']);
+        Route::get('/agent-management/details/{id}',[MobileAgentController::class,'detail'])->name('admin.agent-management.details');
         Route::get('/assign-complaints/{agentId}/{complaintId}',[ComplaintController::class,'assign_complaint'])->name('complaints.assign');
-        Route::resource('/town-management', TownController::class);
-        Route::resource('/subtown-management', SubTownController::class);
-        Route::resource('/compaints-management', ComplaintController::class);
-        Route::resource('/priorities-management', PrioritiesController::class);
-        Route::resource('/subtype-management', SubTypeController::class);
-        Route::resource('/source-management', SourceController::class);
-        Route::resource('/compaints-type-management', ComplaintTypeController::class);
-        Route::get('/compaints-management/details/{id}',[ComplaintController::class,'detail'])->name('compaints-management.details');
-        Route::resource('/customer-management', CustomerController::class);
-
-        Route::get('/compaints-reports/reports',[ComplaintController::class,'generate_report'])->name('compaints-reports.reports');
+        Route::resource('/town-management', TownController::class, ['as' => 'admin']);
+        Route::resource('/subtown-management', SubTownController::class, ['as' => 'admin']);
+        Route::resource('/compaints-management', ComplaintController::class, ['as' => 'admin']);
+        Route::resource('/priorities-management', PrioritiesController::class, ['as' => 'admin']);
+        Route::resource('/subtype-management', SubTypeController::class, ['as' => 'admin']);
+        Route::resource('/source-management', SourceController::class, ['as' => 'admin']);
+        Route::resource('/compaints-type-management', ComplaintTypeController::class, ['as' => 'admin']);
+        Route::get('/compaints-management/details/{id}',[ComplaintController::class,'detail'])->name('admin.compaints-management.details');
+        Route::resource('/customer-management', CustomerController::class, ['as' => 'admin']);
+        
+        Route::get('/compaints-reports/reports',[ComplaintController::class,'generate_report'])->name('admin.compaints-reports.reports');
         Route::get('/reports',[ComplaintController::class,'report'])->name('admin.reports');
-        Route::resource('districts', DistrictController::class);
-
-
+        Route::resource('districts', DistrictController::class, ['as' => 'admin']);
+        
+        
     });
 });
 
 Route::prefix('/system')->group(function (){
     Route::middleware(['IsSystemUser'])->group(function () {
-        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        Route::resource('/town-management', TownController::class);
-        Route::resource('/subtown-management', SubTownController::class);
-        Route::resource('/compaints-management', ComplaintController::class);
-        Route::resource('/compaints-type-management', ComplaintTypeController::class);
-        Route::get('/compaints-reports/reports',[ComplaintController::class,'generate_report'])->name('compaints-reports.reports');
+        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('system.home');
+        Route::resource('/agent-management', MobileAgentController::class, ['as' => 'system']);
+        Route::get('/agent-management/details/{id}',[MobileAgentController::class,'detail'])->name('system.agent-management.details');
+        Route::resource('/town-management', TownController::class, ['as' => 'system']);
+        Route::resource('/subtown-management', SubTownController::class, ['as' => 'system']);
+        Route::resource('/compaints-management', ComplaintController::class, ['as' => 'system']);
+        Route::resource('/compaints-type-management', ComplaintTypeController::class, ['as' => 'system']);
+        Route::get('/compaints-reports/reports',[ComplaintController::class,'generate_report'])->name('system.compaints-reports.reports');
         Route::get('/reports',[ComplaintController::class,'report'])->name('reports');
 
-        Route::resource('/subtype-management', SubTypeController::class);
-        Route::resource('/source-management', SourceController::class);
+        Route::resource('/subtype-management', SubTypeController::class, ['as' => 'system']);
+        Route::resource('/source-management', SourceController::class, ['as' => 'system']);
 
-        Route::resource('/customer-management', CustomerController::class);
-        Route::resource('/priorities-management', PrioritiesController::class);
+        Route::resource('/customer-management', CustomerController::class, ['as' => 'system']);
+        Route::resource('/priorities-management', PrioritiesController::class, ['as' => 'system']);
 
-        Route::get('/compaints-management/details/{id}',[ComplaintController::class,'detail'])->name('compaints-management.details');
+        Route::get('/compaints-management/details/{id}',[ComplaintController::class,'detail'])->name('system.compaints-management.details');
+    });
+});
+Route::prefix('/agent')->group(function (){
+    Route::middleware(['IsAgent'])->group(function () {
+        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('agent.home');
+        Route::get('/complaints-management', [ComplaintController::class, 'index'])->name('agent.complaints-management.index');
+
     });
 });

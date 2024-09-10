@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class IsAdmin
+class IsAgent
 {
     /**
      * Handle an incoming request.
@@ -16,17 +16,12 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->role == 1)
+        if(auth()->check())
         {
-            return $next($request);
-        }
-        elseif(auth()->user()->role == 2)
-        {
-            return redirect()->route('system.home');
-        }
-        else
-        {
-            return redirect()->route('agent.home');
+            if(auth()->user()->role == 3)
+            {
+                return $next($request);
+            }
         }
     }
 }

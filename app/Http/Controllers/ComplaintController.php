@@ -38,14 +38,24 @@ class ComplaintController extends Controller
     }
     public function index(Request $request)
     {
-        $complaint = Complaints::with('customer', 'town', 'subtown', 'type', 'prio', 'assignedComplaints')->OrderBy('id', 'DESC');
+        $complaint = Complaints::with('customer', 'town', 'subtown', 'type', 'prio', 'assignedComplaints');
         if ($request->has('search') && $request->search != null && $request->search != '') {
             $complaint = $complaint->where('title', 'LIKE', '%' . $request->search . '%')->orWhere('comp_num', $request->search);
         }
-        $complaint = $complaint->paginate(10);
+        if(auth()->user()->role == 3)
+        {
+            $complaint = $complaint->whereHas('assignedComplaints',function($query){
+                $query->where('agent_id',auth()->user()->agent->id);
+            });
+        }
+        $complaint = $complaint->OrderBy('id', 'DESC')->paginate(10);
         // dd($complaint->toArray());
         if ($request->has('type')) {
             return $complaint;
+        }
+        if(auth()->user()->role == 3)
+        {
+            return view('agent_dashboard.pages.complaints.index', compact('complaint'));
         }
         // dd($complaint->toArray());
         return view('pages.complaints.index', compact('complaint'));
@@ -115,7 +125,14 @@ class ComplaintController extends Controller
             $response = curl_exec($curl);
 
             curl_close($curl);
-            return redirect()->route('compaints-management.index')->with('success', 'Record created successfully.');
+            if(auth()->user()->role == 1)
+            {
+                return redirect()->route('admin.compaints-management.index')->with('success', 'Record created successfully.');
+            }
+            else
+            {
+                return redirect()->route('system.compaints-management.index')->with('success', 'Record created successfully.');
+            }
 
         } else {
             return back()->with('error', $valid->errors());
@@ -143,7 +160,15 @@ class ComplaintController extends Controller
                 $data['image'] = $this->complaintImage($request->image);
             }
             Complaints::where('id', $id)->update($data);
-            return redirect()->route('compaints-management.index')->with('success', 'Record Updated successfully.');
+            if(auth()->user()->role == 1)
+            {
+                return redirect()->route('admin.compaints-management.index')->with('success', 'Record Updated successfully.');
+                
+            }
+            else
+            {
+                return redirect()->route('system.compaints-management.index')->with('success', 'Record Updated successfully.');
+            }
 
         } else {
             return back()->with('error', $valid->errors());

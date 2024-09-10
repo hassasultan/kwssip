@@ -18,8 +18,13 @@
                 <h2 class="page-title">Complaint Type Management</h2>
                 <p> Tables with built-in bootstrap styles </p>
                 <div class="col-12 text-right">
-                    <a class="btn btn-primary" href="{{ route('compaints-type-management.create') }}">add</i>&nbsp;&nbsp;<i
+                    @if (auth()->user()->role == 1)
+                        <a class="btn btn-primary" href="{{ route('admin.compaints-type-management.create') }}">add</i>&nbsp;&nbsp;<i
                             class="fa fa-user"></i></a>
+                    @else
+                        <a class="btn btn-primary" href="{{ route('system.compaints-type-management.create') }}">add</i>&nbsp;&nbsp;<i
+                            class="fa fa-user"></i></a>
+                    @endif
                 </div>
                 <div class="row">
                     <div class="col-md-12 my-4">
@@ -47,8 +52,13 @@
                                 </div>
                                 <div class="p-4">
                                     <h5>Generate Report</h5>
-                                    <form role="form" method="get" action="{{ route('compaints-reports.reports') }}"
+                                    @if (auth()->user()->role == 1)
+                                    <form role="form" method="get" action="{{ route('admin.compaints-reports.reports') }}"
                                         enctype="multipart/form-data">
+                                        @else
+                                        <form role="form" method="get" action="{{ route('system.compaints-reports.reports') }}"
+                                            enctype="multipart/form-data">
+                                    @endif
                                         <div class="row">
 
                                             <div class="form-group col-4">
@@ -94,11 +104,19 @@
                                                             </td>
 
                                                             <td class="align-middle">
-                                                                <a href="{{ route('compaints-type-management.edit', $row->id) }}"
+                                                                @if (auth()->user()->role == 1)
+                                                                <a href="{{ route('admin.compaints-type-management.edit', $row->id) }}"
                                                                     class="text-secondary font-weight-bold text-xs"
                                                                     data-toggle="tooltip" data-original-title="Edit user">
                                                                     Edit
                                                                 </a>
+                                                                @else
+                                                                <a href="{{ route('system.compaints-type-management.edit', $row->id) }}"
+                                                                    class="text-secondary font-weight-bold text-xs"
+                                                                    data-toggle="tooltip" data-original-title="Edit user">
+                                                                    Edit
+                                                                </a>
+                                                                @endif
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -140,10 +158,17 @@
 
         });
 
+        var url = '';
+        if ({{ auth()->user()->role }} == 1) {
+            url = "{{ route('admin.compaints-type-management.index') }}";
+        } else {
+            url = "{{ route('system.compaints-type-management.index') }}";
+
+        }
         function fetchDataOnClick(page) {
             console.log(page);
             $.ajax({
-                url: "{{ route('compaints-type-management.index') }}",
+                url: url,
                 type: "GET",
                 data: {
                     type: 'ajax',
@@ -164,7 +189,7 @@
         // Function to send AJAX request on document ready
         function fetchDataOnReady() {
             $.ajax({
-                url: "{{ route('compaints-type-management.index') }}",
+                url: url,
                 type: "GET",
                 data: {
                     type: 'ajax',

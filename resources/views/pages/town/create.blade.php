@@ -15,34 +15,39 @@
                 </div>
                 <div class="card-body px-4 pb-2">
                     <h5>Give Project Informarion...</h5>
-                    <form role="form" method="POST" action="{{ route('town-management.store') }}"
-                        enctype="multipart/form-data">
-                        @csrf
-                        <div class="row">
-                            <div class="form-group col-12 p-3">
-                                <label>Select District*</label>
-                                <select name="district_id" class="select2-multiple form-control fs-14  h-50px" required>
-                                    @foreach ($district as $row)
-                                        <option value="{{ $row->id }}">{{ $row->title }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group col-12 p-3">
-                                <label>Project*</label>
-                                <input type="text" class="form-control border-bottom border-1 border-dark"
-                                placeholder="Enter Project Here..." name="town" required  value="{{ old('town') }}"/>
-                            </div>
-                            {{-- <div class="form-group col-12 p-3">
+                    @if (auth()->user()->role == 1)
+                        <form role="form" method="POST" action="{{ route('admin.town-management.store') }}"
+                            enctype="multipart/form-data">
+                        @else
+                            <form role="form" method="POST" action="{{ route('system.town-management.store') }}"
+                                enctype="multipart/form-data">
+                    @endif
+                    @csrf
+                    <div class="row">
+                        <div class="form-group col-12 p-3">
+                            <label>Select District*</label>
+                            <select name="district_id" class="select2-multiple form-control fs-14  h-50px" required>
+                                @foreach ($district as $row)
+                                    <option value="{{ $row->id }}">{{ $row->title }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-12 p-3">
+                            <label>Project*</label>
+                            <input type="text" class="form-control border-bottom border-1 border-dark"
+                                placeholder="Enter Project Here..." name="town" required value="{{ old('town') }}" />
+                        </div>
+                        {{-- <div class="form-group col-12 p-3">
                                 <label>Sub Town*</label>
                                 <input type="text" class="form-control border-bottom border-1 border-dark"
                                 placeholder="Enter Sub Town Here..." name="subtown" required  value="{{ old('subtown') }}"/>
                             </div> --}}
-                            <div class="text-center">
-                                <button type="submit"
-                                    class="btn btn-lg bg-gradient-primary btn-lg w-20 mt-4 mb-0">Create</button>
-                            </div>
+                        <div class="text-center">
+                            <button type="submit"
+                                class="btn btn-lg bg-gradient-primary btn-lg w-20 mt-4 mb-0">Create</button>
                         </div>
+                    </div>
 
                     </form>
                 </div>

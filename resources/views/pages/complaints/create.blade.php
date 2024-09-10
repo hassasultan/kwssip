@@ -15,8 +15,13 @@
                 </div>
                 <div class="card-body px-4 pb-2">
                     <h5>Give Complaint Informarion...</h5>
-                    <form role="form" method="get" action="{{ route('compaints-management.create') }}"
+                    @if (auth()->user()->role == 1)
+                    <form role="form" method="get" action="{{ route('admin.compaints-management.create') }}"
                         enctype="multipart/form-data">
+                        @else
+                        <form role="form" method="get" action="{{ route('system.compaints-management.create') }}"
+                            enctype="multipart/form-data">
+                    @endif
                         <div class="row">
 
                             <div class="form-group col-8 p-3">

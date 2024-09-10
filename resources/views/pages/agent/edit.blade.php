@@ -16,7 +16,11 @@
         </div>
         <div class="card-body px-4 pb-2">
             <h5>Give User Informarion...</h5>
-            <form role="form" method="POST" action="{{ route('agent-management.update',$agent->id) }}" enctype="multipart/form-data">
+            @if (auth()->user()->role == 1)
+            <form role="form" method="POST" action="{{ route('admin.agent-management.update',$agent->id) }}" enctype="multipart/form-data">
+                @else
+                <form role="form" method="POST" action="{{ route('system.agent-management.update',$agent->id) }}" enctype="multipart/form-data">
+            @endif
                 @method('PUT')
                 @csrf
                 <div class="row">

@@ -43,8 +43,13 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <h5>Give Agent Informarion...</h5>
-                                        <form role="form" method="POST" action="{{ route('agent-management.store') }}"
+                                        @if (auth()->user()->role == 1)
+                                        <form role="form" method="POST" action="{{ route('admin.agent-management.store') }}"
                                             enctype="multipart/form-data">
+                                            @else
+                                            <form role="form" method="POST" action="{{ route('system.agent-management.store') }}"
+                                                enctype="multipart/form-data">
+                                        @endif
                                             @csrf
                                             <div class="row">
                                                 <div class="form-group col-12 p-3">

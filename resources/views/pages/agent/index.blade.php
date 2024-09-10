@@ -19,8 +19,13 @@
                 <h2 class="page-title">Agent Management</h2>
                 <p> Tables with built-in bootstrap styles </p>
                 <div class="col-12 text-right">
-                    <a class="btn btn-primary" href="{{ route('agent-management.create') }}">add</i>&nbsp;&nbsp;<i
+                    @if (auth()->user()->role == 1)
+                    <a class="btn btn-primary" href="{{ route('admin.agent-management.create') }}">add</i>&nbsp;&nbsp;<i
                             class="fa fa-user"></i></a>
+                            @else
+                            <a class="btn btn-primary" href="{{ route('system.agent-management.create') }}">add</i>&nbsp;&nbsp;<i
+                                    class="fa fa-user"></i></a>
+                    @endif
                 </div>
                 <div class="row">
                     <div class="col-md-12 my-4">
@@ -98,17 +103,31 @@
                                                     <p class="text-xs text-secondary mb-0">{{ count($row->hydrant->vehicles) }}</p>
                                                 </td> --}}
                                                         <td class="align-middle">
-                                                            <a href="{{ route('agent-management.edit', $row->id) }}"
+                                                            @if (auth()->user()->role == 1)
+                                                            <a href="{{ route('admin.agent-management.edit', $row->id) }}"
                                                                 class="text-secondary font-weight-bold text-xs m-3"
                                                                 data-toggle="tooltip" data-original-title="Edit user">
                                                                 Edit
                                                             </a>
                                                             |
-                                                            <a href="{{ route('agent-management.details', $row->id) }}"
+                                                            <a href="{{ route('admin.agent-management.details', $row->id) }}"
                                                                 class="text-secondary font-weight-bold text-xs m-3"
                                                                 data-toggle="tooltip" data-original-title="Edit user">
                                                                 Assigned Complaints
                                                             </a>
+                                                            @else
+                                                            <a href="{{ route('system.agent-management.edit', $row->id) }}"
+                                                                class="text-secondary font-weight-bold text-xs m-3"
+                                                                data-toggle="tooltip" data-original-title="Edit user">
+                                                                Edit
+                                                            </a>
+                                                            |
+                                                            <a href="{{ route('system.agent-management.details', $row->id) }}"
+                                                                class="text-secondary font-weight-bold text-xs m-3"
+                                                                data-toggle="tooltip" data-original-title="Edit user">
+                                                                Assigned Complaints
+                                                            </a>
+                                                            @endif
                                                         </td>
                                                     </tr>
                                                 @endforeach

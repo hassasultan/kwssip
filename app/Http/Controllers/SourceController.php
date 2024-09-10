@@ -33,7 +33,16 @@ class SourceController extends Controller
         {
             $data = $request->all();
             Source::create($data);
-            return redirect()->route('source-management.index')->with('success', 'Record created successfully.');
+            if(auth()->user()->role == 1)
+            {
+                return redirect()->route('admin.source-management.index')->with('success', 'Record created successfully.');
+                
+            }
+            else
+            {
+                return redirect()->route('system.source-management.index')->with('success', 'Record created successfully.');
+                
+            }
         }
         else
         {
@@ -53,7 +62,16 @@ class SourceController extends Controller
         {
             $data = $request->except(['_method','_token']);
             Source::where('id',$id)->update($data);
-            return redirect()->route('source-management.index')->with('success', 'Record updated successfully.');
+            if(auth()->user()->role == 1)
+            {
+                return redirect()->route('admin.source-management.index')->with('success', 'Record updated successfully.');
+                
+            }
+            else
+            {
+                return redirect()->route('system.source-management.index')->with('success', 'Record updated successfully.');
+                
+            }
 
         }
         else

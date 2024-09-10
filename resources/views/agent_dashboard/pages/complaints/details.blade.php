@@ -11,15 +11,8 @@
                                 <h6 class="text-white text-capitalize ps-3">{{ $complaint->title }}'s Agent List</h6>
                             </div>
                             <div class="col-6 text-end">
-                                @if (auth()->user()->role == 1)
-                                    <a class="btn bg-gradient-dark mb-0 mr-3"
-                                        href="{{ route('admin.agent-management.create') }}"><i
-                                            class="material-icons text-sm">add</i>&nbsp;&nbsp;<i class="fa fa-user"></i></a>
-                                @else
-                                    <a class="btn bg-gradient-dark mb-0 mr-3"
-                                        href="{{ route('system.agent-management.create') }}"><i
-                                            class="material-icons text-sm">add</i>&nbsp;&nbsp;<i class="fa fa-user"></i></a>
-                                @endif
+                                <a class="btn bg-gradient-dark mb-0 mr-3" href="{{ route('agent-management.create') }}"><i
+                                        class="material-icons text-sm">add</i>&nbsp;&nbsp;<i class="fa fa-user"></i></a>
                             </div>
                         </div>
                     </div>
@@ -49,8 +42,8 @@
                                             <td>
                                                 <p class="text-xs font-weight-bold mb-0">{{ $row->user->name }}</p>
                                                 @if ($row->avatar != null)
-                                                    <img src="{{ asset('public/storage/' . $row->avatar) }}"
-                                                        class="img-fluid" style="width: 70px; height: 70px;" />
+                                                    <img src="{{ asset('public/storage/' . $row->avatar) }}" class="img-fluid"
+                                                        style="width: 70px; height: 70px;" />
                                                 @endif
                                             </td>
                                             <td class="align-middle text-center text-sm">
@@ -65,19 +58,11 @@
                             <p class="text-xs text-secondary mb-0">{{ count($row->hydrant->vehicles) }}</p>
                         </td> --}}
                                             <td class="align-middle">
-                                                @if (auth()->user()->role == 1)
-                                                <a href="{{ route('admin.complaints.assign', [$row->id, $complaint->id]) }}"
+                                                <a href="{{ route('complaints.assign', [$row->id, $complaint->id]) }}"
                                                     class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
                                                     data-original-title="Edit user">
                                                     Assign Complaint
                                                 </a>
-                                                @else
-                                                <a href="{{ route('system.complaints.assign', [$row->id, $complaint->id]) }}"
-                                                    class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
-                                                    data-original-title="Edit user">
-                                                    Assign Complaint
-                                                </a>
-                                                @endif
                                             </td>
                                         </tr>
                                     @endif

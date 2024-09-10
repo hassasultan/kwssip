@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('agent_dashboard.layouts.app')
 
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-12">
-                @include('layouts.include.toolbar')
+                @include('agent_dashboard.layouts.include.toolbar')
                 <style>
                     #total-tanker {
                         height: 180px;
@@ -79,7 +79,7 @@
                     setInterval(function() {
 
                         $.ajax({
-                                url: "{{ route('home') }}",
+                                url: "{{ route('agent.home') }}",
                                 type: "Get",
                                 data: {
                                     status: "api",
@@ -122,7 +122,7 @@
                             <div class="row mt-1 align-items-center">
                                 <div class="col-12 col-lg-4 text-left pl-4">
                                     <p class="mb-1 small text-muted">New</p>
-                                    <span class="h3">KWSSIP</span>
+                                    <span class="h3">KWSC</span>
                                     <span class="small text-muted">+100%</span>
                                     <span class="fe fe-arrow-up text-success fe-12"></span>
                                     <p class="text-muted mt-2">
@@ -154,21 +154,15 @@
                                     <span class="small text-muted">+20%</span>
                                     <span class="fe fe-arrow-up text-success fe-12"></span>
                                 </div>
-                                <div class="col-xl-12 col-sm-14  text-right">
-                                    @if (auth()->user()->role == 1)
-                                        <a class="btn btn-primary mb-0" href="{{ route('admin.compaints-management.create') }}"
-                                            target="_blank">+
-                                            Add New Complaint</a>
-                                    @else
-                                        <a class="btn btn-primary mb-0" href="{{ route('system.compaints-management.create') }}"
-                                            target="_blank">+
-                                            Add New Complaint</a>
-                                    @endif
-                                </div>
+                                {{-- <div class="col-xl-12 col-sm-14  text-right">
+                                    <a class="btn btn-primary mb-0" href="{{ route('compaints-management.create') }}"
+                                        target="_blank">+
+                                        Add New Complaint</a>
+                                </div> --}}
                             </div>
-                            <div class="chartbox mr-4">
+                            {{-- <div class="chartbox mr-4">
                                 <div id="container2"></div>
-                            </div>
+                            </div> --}}
                         </div> <!-- .card-body -->
                     </div> <!-- .card -->
                 </div>
@@ -202,82 +196,4 @@
             </div>
         </div>
     </div>
-@endsection
-@section('bottom_script')
-    <script>
-        $(document).ready(function() {
-            var cat = @json($allTown);
-            var type = @json($typeComp);
-            // console.log(type);
-            var seriesData = [];
-
-            // Perform a loop to generate the series data dynamically
-            for (var i = 0; i < type.length; i++) {
-                console.log(type[i]);
-                var series = {
-                    name: type[i].name,
-                    data: []
-                };
-
-                // Generate random data for each series
-                for (var j = 0; j <= type[i].data.length; j++) {
-
-                    if (type[i].data[j] == undefined) {
-                        // var value = 0;
-                        // series.data.push(value);
-                        console.log(type[i].data[j]);
-                    } else {
-                        var value = type[i].data[j];
-                        series.data.push(value);
-                    }
-                    // }
-                    // else
-                    // {
-                    //     var value = 0;
-                    //     series.data.push(value);
-                    // }
-                }
-                console.log(series);
-
-                // Add the series to the seriesData array
-                seriesData.push(series);
-            }
-            Highcharts.chart('container2', {
-                chart: {
-                    type: 'column'
-                },
-
-                title: {
-                    text: 'Complaints High Chart'
-                },
-
-                xAxis: {
-                    categories: cat
-                },
-
-                yAxis: {
-                    allowDecimals: false,
-                    min: 0,
-                    title: {
-                        text: 'Count medals'
-                    }
-                },
-
-                tooltip: {
-                    formatter: function() {
-                        return '<b>' + this.x + '</b><br/>' +
-                            this.series.name + ': ' + this.y;
-                    }
-                },
-                // series: [{
-                // name: 'Series 1',
-                // data: [5, 10, 15]
-                // }, {
-                // name: 'Series 2',
-                // data: [8, 12, 7]
-                // }]
-                series: seriesData
-            });
-        });
-    </script>
 @endsection

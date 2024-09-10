@@ -16,7 +16,11 @@
         </div>
         <div class="card-body px-4 pb-2">
             <h5>Give Project Informarion...</h5>
-            <form role="form" method="POST" action="{{ route('town-management.update',$town->id) }}" enctype="multipart/form-data">
+            @if(auth()->user()->role == 1)
+            <form role="form" method="POST" action="{{ route('admin.town-management.update',$town->id) }}" enctype="multipart/form-data">
+            @else
+                <form role="form" method="POST" action="{{ route('system.town-management.update',$town->id) }}" enctype="multipart/form-data">
+            @endif
                 @method('PUT')
                 @csrf
                 <div class="row">

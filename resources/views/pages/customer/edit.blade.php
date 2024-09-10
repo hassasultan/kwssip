@@ -1,12 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row">
-    <div class="col-12">
-        <div class="card my-4">
-            <div class="card-body px-4 pb-2">
-                <h5>Edit Customer Information</h5>
-                <form role="form" method="POST" action="{{ route('customer-management.update', $customer->id) }}">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-body px-4 pb-2">
+                    <h5>Edit Customer Information</h5>
+                    @if (auth()->user()->role == 1)
+                        <form role="form" method="POST"
+                            action="{{ route('admin.customer-management.update', $customer->id) }}">
+                        @else
+                            <form role="form" method="POST"
+                                action="{{ route('system.customer-management.update', $customer->id) }}">
+                    @endif
                     @csrf
                     @method('PUT') <!-- Use method spoofing for PUT request -->
                     <div class="row">
@@ -45,9 +51,9 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

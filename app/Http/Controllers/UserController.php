@@ -59,7 +59,7 @@ class UserController extends Controller
             ]);
             $user->role = $request->role;
             $user->save();
-            return redirect()->route('user-management.index')->with('success', 'Record created successfully.');
+            return redirect()->route('admin.user-management.index')->with('success', 'Record created successfully.');
         } else {
             return back()->with('error', $valid->errors());
         }
@@ -83,6 +83,6 @@ class UserController extends Controller
             $user->password = Hash::make($request->input('password'));
         }
         $user->save();
-        return redirect()->route('user-management.index')->with('success', 'Record updated successfully.');
+        return redirect()->route('admin.user-management.index')->with('success', 'Record updated successfully.');
     }
 }

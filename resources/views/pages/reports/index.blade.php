@@ -10,7 +10,8 @@
                 <div class="col-md-3">
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <form role="form" method="get" action="{{ route('compaints-reports.reports') }}"
+                            
+                            <form role="form" method="get" action="{{ route('admin.compaints-reports.reports') }}"
                                 enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="form-group col-12">
@@ -40,7 +41,7 @@
                 <div class="col-md-3">
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <form role="form" method="get" action="{{ route('compaints-reports.reports') }}"
+                            <form role="form" method="get" action="{{ route('admin.compaints-reports.reports') }}"
                                 enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="form-group col-12">
@@ -80,7 +81,7 @@
                 <div class="col-md-3">
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <form role="form" method="get" action="{{ route('compaints-reports.reports') }}"
+                            <form role="form" method="get" action="{{ route('admin.compaints-reports.reports') }}"
                                 enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="form-group col-12">
@@ -120,7 +121,7 @@
                 <div class="col-md-3">
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <form role="form" method="get" action="{{ route('compaints-reports.reports') }}"
+                            <form role="form" method="get" action="{{ route('admin.compaints-reports.reports') }}"
                                 enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="form-group col-12">
@@ -160,7 +161,7 @@
                 <div class="col-md-3">
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <form role="form" method="get" action="{{ route('compaints-reports.reports') }}"
+                            <form role="form" method="get" action="{{ route('admin.compaints-reports.reports') }}"
                                 enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="form-group col-12">
@@ -201,7 +202,7 @@
                 <div class="col-md-3">
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <form role="form" method="get" action="{{ route('compaints-reports.reports') }}"
+                            <form role="form" method="get" action="{{ route('admin.compaints-reports.reports') }}"
                                 enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="form-group col-12">
@@ -242,7 +243,7 @@
                 <div class="col-md-3">
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <form role="form" method="get" action="{{ route('compaints-reports.reports') }}"
+                            <form role="form" method="get" action="{{ route('admin.compaints-reports.reports') }}"
                                 enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="form-group col-12">

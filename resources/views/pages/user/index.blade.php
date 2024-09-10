@@ -19,7 +19,8 @@
                 <h2 class="page-title">User Management</h2>
                 <p> Tables with built-in bootstrap styles </p>
                 <div class="col-12 text-right">
-                    <a class="btn btn-primary" href="{{ route('user-management.create') }}">add</i>&nbsp;&nbsp;<i
+                    
+                    <a class="btn btn-primary" href="{{ route('admin.user-management.create') }}">add</i>&nbsp;&nbsp;<i
                             class="fa fa-user"></i></a>
                 </div>
                 <div class="row">
@@ -168,7 +169,7 @@
         function fetchDataOnClick(page) {
             console.log(page);
             $.ajax({
-                url: "{{ route('user-management.index') }}",
+                url: "{{ route('admin.user-management.index') }}",
                 type: "GET",
                 data:{
                     type:'ajax',
@@ -188,7 +189,7 @@
         // Function to send AJAX request on document ready
         function fetchDataOnReady() {
             $.ajax({
-                url: "{{ route('user-management.index') }}",
+                url: "{{ route('admin.user-management.index') }}",
                 type: "GET",
                 data:{
                     type:'ajax',

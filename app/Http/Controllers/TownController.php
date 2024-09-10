@@ -50,7 +50,16 @@ class TownController extends Controller
         {
             $data = $request->all();
             Town::create($data);
-            return redirect()->route('town-management.index')->with('success', 'Record created successfully.');
+            if(auth()->user()->role == 1)
+            {
+                return redirect()->route('admin.town-management.index')->with('success', 'Record created successfully.');
+                
+            }
+            else
+            {
+                return redirect()->route('system.town-management.index')->with('success', 'Record created successfully.');
+                
+            }
         }
         else
         {
@@ -71,7 +80,16 @@ class TownController extends Controller
         {
             $data = $request->except(['_method','_token']);
             Town::where('id',$id)->update($data);
-            return redirect()->route('town-management.index')->with('success', 'Record updated successfully.');
+            if(auth()->user()->role == 1)
+            {
+                return redirect()->route('admin.town-management.index')->with('success', 'Record updated successfully.');
+                
+            }
+            else
+            {
+                return redirect()->route('system.town-management.index')->with('success', 'Record updated successfully.');
+                
+            }
 
         }
         else

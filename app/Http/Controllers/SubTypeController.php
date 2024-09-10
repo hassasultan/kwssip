@@ -44,7 +44,16 @@ class SubTypeController extends Controller
         {
             $data = $request->all();
             SubType::create($data);
-            return redirect()->route('subtype-management.index')->with('success', 'Record created successfully.');
+            if(auth()->user()->role == 1)
+            {
+                return redirect()->route('admin.subtype-management.index')->with('success', 'Record created successfully.');
+                
+            }
+            else
+            {
+                return redirect()->route('system.subtype-management.index')->with('success', 'Record created successfully.');
+                
+            }
         }
         else
         {
@@ -65,7 +74,16 @@ class SubTypeController extends Controller
         {
             $data = $request->except(['_method','_token']);
             SubType::where('id',$id)->update($data);
-            return redirect()->route('subtype-management.index')->with('success', 'Record updated successfully.');
+            if(auth()->user()->role == 1)
+            {
+                return redirect()->route('admin.subtype-management.index')->with('success', 'Record updated successfully.');
+                
+            }
+            else
+            {
+                return redirect()->route('system.subtype-management.index')->with('success', 'Record updated successfully.');
+                
+            }
 
         }
         else

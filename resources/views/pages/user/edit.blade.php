@@ -15,7 +15,7 @@
         </div> --}}
                 <div class="card-body px-4 pb-2">
                     <h5>Give User Informarion...</h5>
-                    <form role="form" method="POST" action="{{ route('user-management.update', $user->id) }}"
+                    <form role="form" method="POST" action="{{ route('admin.user-management.update', $user->id) }}"
                         enctype="multipart/form-data">
                         @method('PUT')
                         @csrf

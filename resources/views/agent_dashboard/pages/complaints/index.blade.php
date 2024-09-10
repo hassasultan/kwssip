@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('agent_dashboard.layouts.app')
 
 @section('content')
     <style>
@@ -65,15 +65,8 @@
                 <h2 class="page-title">Grievance Management</h2>
                 {{-- <p> Tables with built-in bootstrap styles </p> --}}
                 <div class="col-12 text-right">
-                    @if (auth()->user()->role == 1)
-                        <a class="btn btn-primary"
-                            href="{{ route('admin.compaints-management.create') }}">add</i>&nbsp;&nbsp;<i
-                                class="fa fa-user"></i></a>
-                    @else
-                        <a class="btn btn-primary"
-                            href="{{ route('system.compaints-management.create') }}">add</i>&nbsp;&nbsp;<i
-                                class="fa fa-user"></i></a>
-                    @endif
+                    {{-- <a class="btn btn-primary" href="{{ route('compaints-management.create') }}">add</i>&nbsp;&nbsp;<i
+                            class="fa fa-user"></i></a> --}}
                 </div>
                 <div class="row">
                     <div class="col-md-12 my-4">
@@ -212,18 +205,10 @@
 
             });
 
-            var url = '';
-            if ({{ auth()->user()->role }} == 1) {
-                url = "{{ route('admin.compaints-management.index') }}";
-            } else {
-                url = "{{ route('system.compaints-management.index') }}";
-
-            }
-
             function fetchDataOnClick(page) {
                 console.log(page);
                 $.ajax({
-                    url: url,
+                    url: "{{ route('agent.complaints-management.index') }}",
                     type: "GET",
                     data: {
                         type: 'ajax',
@@ -244,7 +229,7 @@
             // Function to send AJAX request on document ready
             function fetchDataOnReady() {
                 $.ajax({
-                    url: url,
+                    url: "{{ route('agent.complaints-management.index') }}",
                     type: "GET",
                     data: {
                         type: 'ajax',
@@ -300,7 +285,7 @@
                     html += '</td>';
                     html += '<td class="align-middle text-center text-sm">';
                     if (row.image != null) {
-                        html += '<img src="{{ asset('storage/') }}/' + row.image +
+                        html += '<img src="{{ asset("storage/") }}/' + row.image +
                             '" class="img-fluid" style="width: 70px; height: 70px;" />';
                     } else {
                         html += 'Not Available';
@@ -326,23 +311,10 @@
                         '<span class="badge bg-danger text-white">Pending</span>';
                     html += '</td>';
                     html += '<td class="align-middle">';
-                    if ({{ auth()->user()->role == 1 }}) {
-                        html += row.assigned_complaints == null ? '<a href="' +
-                            "{{ route('admin.compaints-management.details', '') }}/" + row.id +
-                            '" class="text-secondary font-weight-bold text-xs m-3" data-toggle="tooltip" data-original-title="Edit user">Assign</a>' :
-                            '<a href="{{ route('admin.agent-management.details', '') }}/' + row.assigned_complaints.agent_id +
-                            '" class="text-secondary font-weight-bold text-xs m-3" data-toggle="tooltip" data-original-title="Edit user">Already Assigned</a>';
-                    } else {
-                        html += row.assigned_complaints == null ? '<a href="' +
-                            "{{ route('system.compaints-management.details', '') }}/" + row.id +
-                            '" class="text-secondary font-weight-bold text-xs m-3" data-toggle="tooltip" data-original-title="Edit user">Assign</a>' :
-                            '<a href="{{ route('system.agent-management.details', '') }}/' + row.assigned_complaints
-                            .agent_id +
-                            '" class="text-secondary font-weight-bold text-xs m-3" data-toggle="tooltip" data-original-title="Edit user">Already Assigned</a>';
-
-                    }
-                    html += '<a href="' + currentUrl + '/' + row.id +
-                        '/edit" class="text-secondary font-weight-bold text-xs m-3" data-toggle="tooltip" data-original-title="Edit user">Edit</a>';
+                    html += row.assigned_complaints == null ? '<a href="' + "{{ route('compaints-management.details', '') }}/" +row.id+ '" class="text-secondary font-weight-bold text-xs m-3" data-toggle="tooltip" data-original-title="Edit user">Assign</a>' :
+                        '<a href="{{ route("agent-management.details","") }}/' + row.assigned_complaints.agent_id +
+                        '" class="text-secondary font-weight-bold text-xs m-3" data-toggle="tooltip" data-original-title="Edit user">Already Assigned</a>';
+                    html += '<a href="'+currentUrl+'/'+row.id +'/edit" class="text-secondary font-weight-bold text-xs m-3" data-toggle="tooltip" data-original-title="Edit user">Edit</a>';
                     html += '</td>';
                     html += '</tr>';
                 });

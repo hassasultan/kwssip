@@ -20,19 +20,36 @@ class PrioritiesController extends Controller
     public function store(Request $request)
     {
         Priorities::create($request->all());
-        return redirect()->route('priorities-management.index')->with('success', 'Record created successfully.');
+        if(auth()->user()->role == 1)
+        {
+            return redirect()->route('admin.priorities-management.index')->with('success', 'Record created successfully.');
+        }
+        else
+        {
+            return redirect()->route('system.priorities-management.index')->with('success', 'Record created successfully.');
+
+        }
 
     }
     public function edit($id)
     {
         $prio = Priorities::find($id);
-        return view('pages.priorities.edit',compact('type'));
+        return view('pages.priorities.edit',compact('prio'));
     }
     public function update(Request $request,$id)
     {
         $data = $request->except(['_method','_token']);
         Priorities::where('id',$id)->update($data);
-        return redirect()->route('priorities-management.index')->with('success', 'Record created successfully.');
+        if(auth()->user()->role == 1)
+        {
+            return redirect()->route('admin.priorities-management.index')->with('success', 'Record created successfully.');
+            
+        }
+        else
+        {
+            return redirect()->route('system.priorities-management.index')->with('success', 'Record created successfully.');
+
+        }
 
 
     }

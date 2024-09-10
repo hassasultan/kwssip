@@ -12,7 +12,11 @@
                     <h6 class="text-white text-capitalize ps-3">Priorities List</h6>
                 </div>
                 <div class="col-6 text-end">
-                    <a class="btn bg-gradient-dark mb-0 mr-3" href="{{ route('priorities-management.create') }}"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;<i class="fa fa-truck"></i></a>
+                  @if(auth()->user()->role == 1)
+                  <a class="btn bg-gradient-dark mb-0 mr-3" href="{{ route('admin.priorities-management.create') }}"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;<i class="fa fa-truck"></i></a>
+                  @else
+                  <a class="btn bg-gradient-dark mb-0 mr-3" href="{{ route('system.priorities-management.create') }}"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;<i class="fa fa-truck"></i></a>
+                  @endif
                 </div>
             </div>
           </div>
@@ -41,9 +45,15 @@
                             </td>
 
                             <td class="align-middle">
-                                <a href="{{ route('compaints-type-management.edit',$row->id) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                Edit
-                                </a>
+                              @if(auth()->user()->role == 1)
+                              <a href="{{ route('admin.priorities-management.edit',$row->id) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                              Edit
+                              </a>
+                              @else
+                              <a href="{{ route('system.priorities-management.edit',$row->id) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                              Edit
+                              </a>
+                              @endif
                             </td>
                         </tr>
                     @endforeach

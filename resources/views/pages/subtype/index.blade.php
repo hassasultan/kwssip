@@ -65,8 +65,13 @@
                 <h2 class="page-title">SubType Management</h2>
                 <p> Tables with built-in bootstrap styles </p>
                 <div class="col-12 text-right">
-                    <a class="btn btn-primary" href="{{ route('subtype-management.create') }}">add</i>&nbsp;&nbsp;<i
-                            class="fa fa-user"></i></a>
+                    @if (auth()->user()->role == 1)
+                        <a class="btn btn-primary" href="{{ route('admin.subtype-management.create') }}">add</i>&nbsp;&nbsp;<i
+                                class="fa fa-user"></i></a>
+                    @else
+                        <a class="btn btn-primary" href="{{ route('system.subtype-management.create') }}">add</i>&nbsp;&nbsp;<i
+                                class="fa fa-user"></i></a>
+                    @endif
                 </div>
                 <div class="row">
                     <div class="col-md-12 my-4">
@@ -152,14 +157,14 @@
                                             </tbody>
                                         </table>
                                         <nav aria-label="Table Paging" class="mb-0 text-muted">
-                                          <ul class="pagination justify-content-center mb-0" id="user-pagination">
-                                              {{-- <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                            <ul class="pagination justify-content-center mb-0" id="user-pagination">
+                                                {{-- <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                                               <li class="page-item"><a class="page-link" href="#">1</a></li>
                                               <li class="page-item active"><a class="page-link" href="#">2</a></li>
                                               <li class="page-item"><a class="page-link" href="#">3</a></li>
                                               <li class="page-item"><a class="page-link" href="#">Next</a></li> --}}
-                                          </ul>
-                                      </nav>
+                                            </ul>
+                                        </nav>
                                     </div>
                                 </div>
                             </div>
@@ -184,10 +189,17 @@
 
         });
 
+        var url = '';
+        if ({{ auth()->user()->role }} == 1) {
+            url = "{{ route('admin.subtype-management.index') }}";
+        } else {
+            url = "{{ route('system.subtype-management.index') }}";
+
+        }
         function fetchDataOnClick(page) {
             console.log(page);
             $.ajax({
-                url: "{{ route('subtype-management.index') }}",
+                url: url,
                 type: "GET",
                 data: {
                     type: 'ajax',
@@ -208,7 +220,7 @@
         // Function to send AJAX request on document ready
         function fetchDataOnReady() {
             $.ajax({
-                url: "{{ route('subtype-management.index') }}",
+                url: url,
                 type: "GET",
                 data: {
                     type: 'ajax',

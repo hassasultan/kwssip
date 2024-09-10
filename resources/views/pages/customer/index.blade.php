@@ -8,8 +8,14 @@
                 <h2 class="page-title">Customer Management</h2>
                 <p> All Customer are available here... </p>
                 <div class="col-12 text-right">
-                    <a class="btn btn-primary" href="{{ route('customer-management.create') }}">add</i>&nbsp;&nbsp;<i
-                            class="fa fa-user"></i></a>
+                    @if (auth()->user()->role == 1)
+                        <a class="btn btn-primary" href="{{ route('admin.customer-management.create') }}">add</i>&nbsp;&nbsp;<i
+                                class="fa fa-user"></i></a>
+                    @else
+                        <a class="btn btn-primary" href="{{ route('system.customer-management.create') }}">add</i>&nbsp;&nbsp;<i
+                                class="fa fa-user"></i></a>
+                    @endif
+
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -77,13 +83,13 @@
                                         </tbody>
                                     </table>
                                     <nav aria-label="Table Paging" class="mb-0 text-muted">
-                                      <ul class="pagination justify-content-center mb-0" id="user-pagination">
-                                        {{-- <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                        <ul class="pagination justify-content-center mb-0" id="user-pagination">
+                                            {{-- <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                                         <li class="page-item"><a class="page-link" href="#">1</a></li>
                                         <li class="page-item active"><a class="page-link" href="#">2</a></li>
                                         <li class="page-item"><a class="page-link" href="#">3</a></li>
                                         <li class="page-item"><a class="page-link" href="#">Next</a></li> --}}
-                                      </ul>
+                                        </ul>
                                     </nav>
                                 </div>
                             </div>
@@ -108,10 +114,17 @@
 
         });
 
+        var url = '';
+        if ({{ auth()->user()->role }} == 1) {
+            url = "{{ route('admin.customer-management.index') }}";
+        } else {
+            url = "{{ route('system.customer-management.index') }}";
+
+        }
         function fetchDataOnClick(page) {
             console.log(page);
             $.ajax({
-                url: "{{ route('customer-management.index') }}",
+                url: url,
                 type: "GET",
                 data: {
                     type: 'ajax',
@@ -132,7 +145,7 @@
         // Function to send AJAX request on document ready
         function fetchDataOnReady() {
             $.ajax({
-                url: "{{ route('customer-management.index') }}",
+                url: url,
                 type: "GET",
                 data: {
                     type: 'ajax',
@@ -169,12 +182,14 @@
                 html += '<td class="align-middle text-center text-sm">';
                 html += '<p class="text-xs mb-0">' + row.address + '</p>';
                 html += '</td>';
-                html += '<td>'; 
-                html += '  <button class="btn btn-sm rounded dropdown-toggle more-horizontal text-muted" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+                html += '<td>';
+                html +=
+                    '  <button class="btn btn-sm rounded dropdown-toggle more-horizontal text-muted" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
                 html += '<span class="text-muted sr-only">Action</span>';
                 html += '</button>';
                 html += '<div class="dropdown-menu dropdown-menu-right shadow">';
-                html += '<a class="dropdown-item" href="'+currentUrl+'/'+row.id+'/edit"><i class="fe fe-edit-2 fe-12 mr-3 text-muted"></i>Edit</a>';
+                html += '<a class="dropdown-item" href="' + currentUrl + '/' + row.id +
+                    '/edit"><i class="fe fe-edit-2 fe-12 mr-3 text-muted"></i>Edit</a>';
                 html += '</div></td>';
                 html += '</tr>';
             });
