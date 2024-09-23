@@ -35,8 +35,14 @@
                         </div>
                     </form>
 
-                    <form role="form" method="POST" action="{{ route('compaints-management.store') }}"
-                    enctype="multipart/form-data">
+                
+                    @if (auth()->user()->role == 1)
+                    <form role="form" method="get" action="{{ route('admin.compaints-management.store') }}"
+                        enctype="multipart/form-data">
+                        @else
+                        <form role="form" method="get" action="{{ route('system.compaints-management.store') }}"
+                            enctype="multipart/form-data">
+                    @endif
                     @csrf
                         <div class="row">
                             <div class="col-6 card-body px-4 pb-2 ">
