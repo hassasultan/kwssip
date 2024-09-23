@@ -9,6 +9,7 @@
 .env.production
 .phpunit.result.cache
 Homestead.json
+composer.lock
 Homestead.yaml
 auth.json
 npm-debug.log

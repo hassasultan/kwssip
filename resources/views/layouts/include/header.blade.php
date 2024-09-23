@@ -4,6 +4,8 @@
   <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
       <i class="fe fe-menu navbar-toggler-icon"></i>
   </button>
+  <h2>Grievance Redressal Mechanism</h2>
+
   {{-- <form class="form-inline mr-auto searchform text-muted">
       <input class="form-control mr-sm-2 bg-transparent border-0 pl-5 text-muted" type="search"
           placeholder="Type something..." aria-label="Search">
