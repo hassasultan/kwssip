@@ -66,17 +66,17 @@
                         </td> --}}
                                             <td class="align-middle">
                                                 @if (auth()->user()->role == 1)
-                                                <a href="{{ route('admin.complaints.assign', [$row->id, $complaint->id]) }}"
+                                                <a href="{{ route('complaints.assign', [$row->id, $complaint->id]) }}"
                                                     class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
                                                     data-original-title="Edit user">
                                                     Assign Complaint
                                                 </a>
-                                                @else
+                                                {{-- @else
                                                 <a href="{{ route('system.complaints.assign', [$row->id, $complaint->id]) }}"
                                                     class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
                                                     data-original-title="Edit user">
                                                     Assign Complaint
-                                                </a>
+                                                </a> --}}
                                                 @endif
                                             </td>
                                         </tr>
