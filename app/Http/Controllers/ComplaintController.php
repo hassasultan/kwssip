@@ -335,7 +335,7 @@ class ComplaintController extends Controller
         } else {
             return redirect()->back()->with('error', "Already Assigned this Complaint...!");
         }
-        return redirect()->route('agent-management.details', $agentId);
+        return redirect()->route('admin.agent-management.details', $agentId);
     }
     public function report()
     {
