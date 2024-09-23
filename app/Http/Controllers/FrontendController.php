@@ -101,7 +101,7 @@ class FrontendController extends Controller
         }
         if ($valid->valid()) {
             $data = $request->all();
-            $prefix = "COMPLAINT-";
+            $prefix = "GRIEVANCE-";
             $CompNum = IdGenerator::generate(['table' => 'complaint', 'field' => 'comp_num', 'length' => 14, 'prefix' => $prefix]);
             $data['comp_num'] = $CompNum;
             $data['source'] = "webpage";
@@ -185,7 +185,7 @@ class FrontendController extends Controller
                 'description' => ['required', 'string'],
             ]);
 
-            $prefix = "COMPLAINT-";
+            $prefix = "GRIEVANCE-";
             $CompNum = IdGenerator::generate(['table' => 'complaint', 'field' => 'comp_num', 'length' => 14, 'prefix' => $prefix]);
             $data['comp_num'] = $CompNum;
             $data['source'] = 'Mobile App';
