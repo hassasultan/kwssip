@@ -210,7 +210,7 @@
             </div>
         </div>
     </div>
-    {{ dd($typeComp) }}
+    {{ dd($allTown) }}
 @endsection
 @section('bottom_script')
     <script>
