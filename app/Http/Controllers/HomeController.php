@@ -57,7 +57,7 @@ class HomeController extends Controller
         {
             array_push($allTown,$row->town);
         }
-        dd($allTown);
+        // dd($allTown);
         foreach($type as $key => $row)
         {
             $resultNew[++$key] = [$row->title, (int)count($row->complaints)];

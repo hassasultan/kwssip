@@ -210,6 +210,7 @@
             </div>
         </div>
     </div>
+    {{ dd(@json($typeComp)) }}
 @endsection
 @section('bottom_script')
     <script>
