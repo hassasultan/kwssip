@@ -77,9 +77,17 @@
                 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
                 <script type="text/javascript">
                     setInterval(function() {
+                        if({{ auth()->user()->role }} == 1)
+                        {
+                            url = "{{ route('home') }}";
+                        }
+                        if({{ auth()->user()->role }} == 2)
+                        {
+                            url = "{{ route('system.home') }}";
 
+                        }
                         $.ajax({
-                                url: "{{ route('home') }}",
+                                url: url,
                                 type: "Get",
                                 data: {
                                     status: "api",
