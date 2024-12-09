@@ -57,7 +57,7 @@ class HomeController extends Controller
         {
             array_push($allTown,$row->town);
         }
-        // dd($allTown);
+        dd($allTown);
         foreach($type as $key => $row)
         {
             $resultNew[++$key] = [$row->title, (int)count($row->complaints)];
@@ -148,7 +148,7 @@ class HomeController extends Controller
         // dd($typeComp);
         if(auth()->user()->role == 3)
         {
-            
+
             return view('agent_dashboard.home',compact('complaintsComplete','totalComplaints','complaintsPending'));
         }
         return view('home',compact('complaintsComplete','totalComplaints','totalAgents','allTown','typeComp_town','typeComp','total_customer','complaintsPending'));
