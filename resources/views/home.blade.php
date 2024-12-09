@@ -229,22 +229,25 @@
                 };
 
                 // Generate random data for each series
-                for (var j = 0; j <= type[i].data.length; j++) {
+                if(type[i].data != undefined)
+                {
+                    for (var j = 0; j <= type[i].data.length; j++) {
 
-                    if (type[i].data[j] == undefined) {
-                        // var value = 0;
-                        // series.data.push(value);
-                        console.log(type[i].data[j]);
-                    } else {
-                        var value = type[i].data[j];
-                        series.data.push(value);
+                        if (type[i].data[j] == undefined) {
+                            // var value = 0;
+                            // series.data.push(value);
+                            console.log(type[i].data[j]);
+                        } else {
+                            var value = type[i].data[j];
+                            series.data.push(value);
+                        }
+                        // }
+                        // else
+                        // {
+                        //     var value = 0;
+                        //     series.data.push(value);
+                        // }
                     }
-                    // }
-                    // else
-                    // {
-                    //     var value = 0;
-                    //     series.data.push(value);
-                    // }
                 }
                 console.log(series);
 
