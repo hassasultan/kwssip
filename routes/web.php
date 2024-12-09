@@ -57,12 +57,12 @@ Route::prefix('/admin')->group(function (){
         Route::resource('/compaints-type-management', ComplaintTypeController::class, ['as' => 'admin']);
         Route::get('/compaints-management/details/{id}',[ComplaintController::class,'detail'])->name('admin.compaints-management.details');
         Route::resource('/customer-management', CustomerController::class, ['as' => 'admin']);
-        
+
         Route::get('/compaints-reports/reports',[ComplaintController::class,'generate_report'])->name('admin.compaints-reports.reports');
         Route::get('/reports',[ComplaintController::class,'report'])->name('admin.reports');
         Route::resource('districts', DistrictController::class, ['as' => 'admin']);
-        
-        
+
+
     });
 });
 
@@ -77,6 +77,7 @@ Route::prefix('/system')->group(function (){
         Route::resource('/compaints-type-management', ComplaintTypeController::class, ['as' => 'system']);
         Route::get('/compaints-reports/reports',[ComplaintController::class,'generate_report'])->name('system.compaints-reports.reports');
         Route::get('/reports',[ComplaintController::class,'report'])->name('reports');
+        Route::resource('districts', DistrictController::class, ['as' => 'system']);
 
         Route::resource('/subtype-management', SubTypeController::class, ['as' => 'system']);
         Route::resource('/source-management', SourceController::class, ['as' => 'system']);
