@@ -210,14 +210,14 @@
             </div>
         </div>
     </div>
-    {{ dd($allTown) }}
+    {{-- {{ dd($allTown) }} --}}
 @endsection
 @section('bottom_script')
     <script>
         $(document).ready(function() {
             var cat = @json($allTown);
             var type = @json($typeComp);
-            // console.log(type);
+            console.log(type);
             var seriesData = [];
 
             // Perform a loop to generate the series data dynamically
