@@ -217,7 +217,7 @@
         $(document).ready(function() {
             var cat = @json($allTown);
             var type = @json($typeComp);
-            console.log(type);
+            console.log(cat);
             var seriesData = [];
 
             // Perform a loop to generate the series data dynamically
