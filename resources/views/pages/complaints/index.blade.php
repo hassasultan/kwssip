@@ -326,7 +326,7 @@
                         '<span class="badge bg-danger text-white">Pending</span>';
                     html += '</td>';
                     html += '<td class="align-middle">';
-                    if ({{ auth()->user()->role == 1 }}) {
+                    if ({{ auth()->user()->role }} == 1) {
                         html += row.assigned_complaints == null ? '<a href="' +
                             "{{ route('admin.compaints-management.details', '') }}/" + row.id +
                             '" class="text-secondary font-weight-bold text-xs m-3" data-toggle="tooltip" data-original-title="Edit user">Assign</a>' :
