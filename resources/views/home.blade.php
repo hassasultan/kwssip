@@ -23,7 +23,7 @@
                     }
                 </style>
                 <style>
-                    #container2 {
+                    #LineChart {
                         height: 400px;
                     }
 
@@ -175,7 +175,7 @@
                                 </div>
                             </div>
                             <div class="chartbox mr-4">
-                                <div id="container2"></div>
+                                <div id="LineChart"></div>
                             </div>
                         </div> <!-- .card-body -->
                     </div> <!-- .card -->
@@ -251,7 +251,7 @@
                 // Add the series to the seriesData array
                 seriesData.push(series);
             }
-            Highcharts.chart('container2', {
+            Highcharts.chart('LineChart', {
                 chart: {
                     type: 'column'
                 },
