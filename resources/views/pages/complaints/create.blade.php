@@ -136,7 +136,7 @@
                                     <select name="sub_town_id" id="sub_town_id"
                                         class="select2-multiple form-control fs-14  h-50px" required>
                                         @foreach ($subtown as $row)
-                                            @if (count($row->town) > 0)
+                                            @if ($row->town != null)
                                                 <option value="{{ $row->id }}">({{ $row->town->town }})
                                                     {{ $row->title }}</option>
                                             @endif
