@@ -70,68 +70,16 @@
                         background: #f1f7ff;
                     }
                 </style>
-                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                <script src="https://code.highcharts.com/highcharts.js"></script>
-                <script src="https://code.highcharts.com/modules/exporting.js"></script>
-                <script src="https://code.highcharts.com/modules/export-data.js"></script>
-                <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-                <script type="text/javascript">
-                    setInterval(function() {
-                        if({{ auth()->user()->role }} == 1)
-                        {
-                            url = "{{ route('home') }}";
-                        }
-                        if({{ auth()->user()->role }} == 2)
-                        {
-                            url = "{{ route('system.home') }}";
 
-                        }
-                        $.ajax({
-                                url: url,
-                                type: "Get",
-                                data: {
-                                    status: "api",
-                                },
-                            }).done(function(data) {
-                                google.charts.load("current", {
-                                    packages: ["corechart"]
-                                });
-                                google.charts.setOnLoadCallback(drawChart2);
-                                let result2 = data['result'];
-                                let result = data['type_count'];
-
-                                function drawChart2() {
-                                    var dataNew = google.visualization.arrayToDataTable(result2);
-                                    var data = google.visualization.arrayToDataTable(result);
-                                    var options = {
-                                        title: '',
-                                        is3D: true,
-                                    };
-                                    var chart = new google.visualization.PieChart(document.getElementById('piechart_3d2'));
-                                    chart.draw(dataNew, options);
-                                    var chart2 = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-                                    chart2.draw(data, options);
-                                }
-
-
-                            })
-                            .fail(function(error) {
-                                console.log(error);
-                                errorModal(error);
-
-                            });
-
-                    }, 3000);
-                </script>
                 {{-- @if (auth()->user()->role == 1) --}}
                 <div class="mb-2 align-items-center">
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="row mt-1 align-items-center">
                                 <div class="col-12 col-lg-4 text-left pl-4">
-                                    <p class="mb-1 small text-muted">New</p>
+                                    {{-- <p class="mb-1 small text-muted">New</p> --}}
                                     <span class="h3">KWSSIP</span>
-                                    <span class="small text-muted">+100%</span>
+                                    {{-- <span class="small text-muted">+100%</span> --}}
                                     <span class="fe fe-arrow-up text-success fe-12"></span>
                                     <p class="text-muted mt-2">
                                         Key Functions of Karachi Water & Sewerage Corporation.
@@ -140,7 +88,7 @@
                                 <div class="col-6 col-lg-2 text-center py-4">
                                     <p class="mb-1 small text-muted">Total Complaints</p>
                                     <span class="h3">{{ $totalComplaints }}</span><br />
-                                    <span class="small text-muted">+20%</span>
+                                    {{-- <span class="small text-muted">+20%</span> --}}
                                     <span class="fe fe-arrow-up text-success fe-12"></span>
 
                                 </div>
@@ -153,23 +101,23 @@
                                 <div class="col-6 col-lg-2 text-center py-4">
                                     <p class="mb-1 small text-muted">Pending Complaints</p>
                                     <span class="h3">{{ $complaintsPending }}</span><br />
-                                    <span class="small text-muted">+20%</span>
+                                    {{-- <span class="small text-muted">+20%</span> --}}
                                     <span class="fe fe-arrow-up text-success fe-12"></span>
                                 </div>
                                 <div class="col-6 col-lg-2 text-center py-4">
                                     <p class="mb-1 small text-muted">Solved Complaints</p>
                                     <span class="h3">{{ $complaintsComplete }}</span><br />
-                                    <span class="small text-muted">+20%</span>
+                                    {{-- <span class="small text-muted">+20%</span> --}}
                                     <span class="fe fe-arrow-up text-success fe-12"></span>
                                 </div>
                                 <div class="col-xl-12 col-sm-14  text-right">
                                     @if (auth()->user()->role == 1)
-                                        <a class="btn btn-primary mb-0" href="{{ route('admin.compaints-management.create') }}"
-                                            target="_blank">+
+                                        <a class="btn btn-primary mb-0"
+                                            href="{{ route('admin.compaints-management.create') }}" target="_blank">+
                                             Add New Complaint</a>
                                     @else
-                                        <a class="btn btn-primary mb-0" href="{{ route('system.compaints-management.create') }}"
-                                            target="_blank">+
+                                        <a class="btn btn-primary mb-0"
+                                            href="{{ route('system.compaints-management.create') }}" target="_blank">+
                                             Add New Complaint</a>
                                     @endif
                                 </div>
@@ -213,11 +161,136 @@
     {{-- {{ dd($allTown) }} --}}
 @endsection
 @section('bottom_script')
-    <script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script type="text/javascript">
         $(document).ready(function() {
-            var cat = @json($allTown);
+            // Retrieve categories and complaints data from Blade
+            var categories = @json($typeCompTown);
+            var complaintsData = @json($typeComp) || [];
+            if (!Array.isArray(complaintsData)) {
+                complaintsData = Object.values(complaintsData);
+            }
+            console.log("Categories:", categories);
+            console.log("Final Complaints Data:", complaintsData);
+
+            var seriesData = complaintsData.map(comp => ({
+                name: comp.name,
+                data: Array.isArray(comp.data) ? comp.data.map(d => d || 0) : []
+            }));
+
+            // Initialize Highcharts
+            Highcharts.chart('LineChart', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Complaints Overview'
+                },
+                xAxis: {
+                    categories: categories
+                },
+                yAxis: {
+                    allowDecimals: false,
+                    min: 0,
+                    title: {
+                        text: 'Count'
+                    }
+                },
+                tooltip: {
+                    formatter: function() {
+                        return `<b>${this.x}</b><br/>${this.series.name}: ${this.y}`;
+                    }
+                },
+                series: seriesData
+            });
+
+            // Function to fetch Google Charts Data
+            function fetchChartData() {
+                let url = "{{ auth()->user()->role == 1 ? route('home') : route('system.home') }}";
+
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    data: {
+                        status: "api"
+                    }
+                }).done(function(data) {
+                    console.log("Google Charts Data:", data);
+
+                    google.charts.load("current", {
+                        packages: ["corechart"]
+                    });
+                    google.charts.setOnLoadCallback(() => drawGoogleCharts(data));
+                }).fail(function(error) {
+                    console.log("Error fetching data:", error);
+                });
+            }
+
+            function drawGoogleCharts(data) {
+                console.log("Received Data:", data);
+
+                // Ensure result data is correct
+                if (!data['result'] || !Array.isArray(data['result'])) {
+                    console.error("Error: data['result'] is not a valid array.", data['result']);
+                    data['result'] = [
+                        ['Status', 'Count'],
+                        ['No Data', 0]
+                    ];
+                }
+
+                // Convert type_count to an array of arrays
+                if (!data['type_count'] || !Array.isArray(data['type_count'])) {
+                    console.error("Error: data['type_count'] is not a valid array.", data['type_count']);
+                    data['type_count'] = [
+                        ['Type', 'Count'],
+                        ['No Data', 0]
+                    ];
+                } else {
+                    let typeCountArray = [
+                        ['Type', 'Count']
+                    ];
+                    data['type_count'].forEach(item => {
+                        if (item.name && Array.isArray(item.data)) {
+                            let totalCount = item.data.reduce((sum, num) => sum + num,
+                            0); // Sum all data values
+                            typeCountArray.push([item.name, totalCount]);
+                        }
+                    });
+
+                    data['type_count'] = typeCountArray;
+                }
+
+                console.log("Processed Data:", data);
+
+                var pieData1 = google.visualization.arrayToDataTable(data['result']);
+                var pieData2 = google.visualization.arrayToDataTable(data['type_count']);
+
+                var options = {
+                    title: '',
+                    is3D: true
+                };
+
+                var chart1 = new google.visualization.PieChart(document.getElementById('piechart_3d2'));
+                chart1.draw(pieData1, options);
+
+                var chart2 = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+                chart2.draw(pieData2, options);
+            }
+
+
+            // Refresh Google Charts every 3 seconds
+            setInterval(fetchChartData, 3000);
+        });
+    </script>
+    {{-- <script>
+        $(document).ready(function() {
+            var cat = @json($typeCompTown);
             var type = @json($typeComp);
-            console.log(cat);
+            console.log(type);
             var seriesData = [];
 
             // Perform a loop to generate the series data dynamically
@@ -229,8 +302,7 @@
                 };
 
                 // Generate random data for each series
-                if(type[i].data != undefined)
-                {
+                if (type[i].data != undefined) {
                     for (var j = 0; j <= type[i].data.length; j++) {
 
                         if (type[i].data[j] == undefined) {
@@ -291,5 +363,5 @@
                 series: seriesData
             });
         });
-    </script>
+    </script> --}}
 @endsection
