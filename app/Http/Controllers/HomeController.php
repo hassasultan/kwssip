@@ -170,8 +170,8 @@ class HomeController extends Controller
 
         $totalComplaints = $complaintsQuery->count();
         $complaintsPending = $complaintsQuery->where('status', 0)->count();
-        $complaintsComplete = $complaintsQuery->where('status', 1)->count();
-
+        $complaintsComplete = Complaints::where('status', 1)->count();
+        // dd($complaintsComplete);
         // Other counts
         $totalAgents = MobileAgent::count();
         $totalCustomer = Customer::count();
