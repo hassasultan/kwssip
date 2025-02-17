@@ -40,8 +40,12 @@
                             <label>Select SubTown*</label>
                             <select name="sub_town_id" class="select2-multiple form-control fs-14  h-50px" required>
                                 @foreach ($subtown as $row)
-                                    <option value="{{ $row->id }}" @if ($row->id == $complaint->sub_town_id) selected @endif>
-                                        ({{ $row->town->town }}) {{ $row->title }}</option>
+                                    @if ($row->town != null)
+                                        <option value="{{ $row->id }}"
+                                            @if ($row->id == $complaint->sub_town_id) selected @endif>
+                                            ({{ $row->town->town }})
+                                            {{ $row->title }}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
