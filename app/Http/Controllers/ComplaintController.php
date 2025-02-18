@@ -153,6 +153,7 @@ class ComplaintController extends Controller
     }
     public function update(Request $request, $id)
     {
+        dd($request->all());
         $valid = $this->validator($request->all());
         if ($valid->valid()) {
             $data = $request->except(['_method', '_token']);
@@ -163,7 +164,6 @@ class ComplaintController extends Controller
             if(auth()->user()->role == 1)
             {
                 return redirect()->route('admin.compaints-management.index')->with('success', 'Record Updated successfully.');
-                
             }
             else
             {

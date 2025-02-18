@@ -37,10 +37,10 @@
 
 
                     @if (auth()->user()->role == 1)
-                        <form role="form" method="get" action="{{ route('admin.compaints-management.store') }}"
+                        <form role="form" method="POST" action="{{ route('admin.compaints-management.store') }}"
                             enctype="multipart/form-data">
                         @else
-                            <form role="form" method="get" action="{{ route('system.compaints-management.store') }}"
+                            <form role="form" method="POST" action="{{ route('system.compaints-management.store') }}"
                                 enctype="multipart/form-data">
                     @endif
                     @csrf
