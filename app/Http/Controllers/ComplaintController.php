@@ -153,7 +153,6 @@ class ComplaintController extends Controller
     }
     public function update(Request $request, $id)
     {
-        dd($request->all());
         $valid = $this->validator($request->all());
         if ($valid->valid()) {
             $data = $request->except(['_method', '_token']);
