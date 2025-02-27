@@ -87,17 +87,41 @@
                                         content.</p> --}}
                                 </div>
                                 <div class="toolbar">
-                                    <form class="form">
-                                        <div class="form-row">
-                                            <div class="form-group col-auto mr-auto">
-                                            </div>
-                                            <div class="form-group col-auto">
-                                                <label for="search" class="sr-only">Search</label>
-                                                <input type="text" class="form-control" id="search1" value=""
-                                                    placeholder="Search">
-                                            </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-auto mr-auto">
                                         </div>
-                                    </form>
+                                        <div class="form-group col-auto">
+                                            <label for="search" class="sr-only">Town</label>
+                                            <select class="form-control select2" id="town-id">
+                                                <option disabled selected> -- Select Town --</option>
+                                                @foreach ($town as $row)
+                                                    <option value="{{ $row->id }}"> {{ $row->town }} </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-auto">
+                                            <label for="search" class="sr-only">Complaint Type</label>
+                                            <select class="form-control select2" id="type-id">
+                                                <option disabled selected> -- Select Complaint Type --</option>
+                                                @foreach ($comptype as $row)
+                                                    <option value="{{ $row->id }}"> {{ $row->title }} </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-auto">
+                                            <label for="search" class="sr-only">Status</label>
+                                            <select class="form-control select2" id="status-id">
+                                                <option disabled selected> -- Select Status --</option>
+                                                <option value="1"> Assigned</option>
+                                                <option value="0">Not Assigned Yet</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-auto">
+                                            <label for="search" class="sr-only">Search</label>
+                                            <input type="text" class="form-control" id="search1" value=""
+                                                placeholder="Search">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 skeleton-container">
@@ -201,14 +225,33 @@
 
         <script>
             var search = null;
-            $("input").keyup(function() {
-                search = $(this).val();
-                fetchDataOnReady();
-            });
+            var town = null;
+            var type = null;
+            var change_status = null;
+            // $("input").keyup(function() {
+            //     search = $(this).val();
+            //     fetchDataOnReady();
+            // });
             $(document).ready(function() {
 
                 // Call the function on document ready
                 fetchDataOnReady();
+                $("input").keyup(function() {
+                    search = $(this).val();
+                    fetchDataOnReady();
+                });
+                $("#town-id").change(function() {
+                    town = $(this).val();
+                    fetchDataOnReady();
+                });
+                $("#type-id").change(function() {
+                    type = $(this).val();
+                    fetchDataOnReady();
+                });
+                $("#status-id").change(function() {
+                    change_status = $(this).val();
+                    fetchDataOnReady();
+                });
 
             });
 
@@ -227,6 +270,9 @@
                     type: "GET",
                     data: {
                         type: 'ajax',
+                        search: search,
+                        town: town,
+                        type_id: type,
                         page: page
                     },
                     success: function(response) {
@@ -248,7 +294,10 @@
                     type: "GET",
                     data: {
                         type: 'ajax',
-                        search: search
+                        search: search,
+                        status: change_status,
+                        town: town,
+                        type_id: type
                     },
                     success: function(response) {
                         console.log("Data fetched successfully on document ready:", response);

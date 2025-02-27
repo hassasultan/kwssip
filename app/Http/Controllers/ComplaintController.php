@@ -38,9 +38,43 @@ class ComplaintController extends Controller
     }
     public function index(Request $request)
     {
-        $complaint = Complaints::with('customer', 'town', 'subtown', 'type', 'prio', 'assignedComplaints');
+        $complaint = Complaints::with('customer', 'town', 'subtown', 'type', 'prio', 'assignedComplaints')->OrderBy('id', 'DESC');
         if ($request->has('search') && $request->search != null && $request->search != '') {
-            $complaint = $complaint->where('title', 'LIKE', '%' . $request->search . '%')->orWhere('comp_num', $request->search);
+
+            $complaint = $complaint->where(function ($query) use ($request) {
+                $query->where('comp_num', 'LIKE', '%' . $request->search . '%')
+                    ->orWhere('customer_num', 'LIKE', '%' . $request->search . '%')
+                    ->orWhere('customer_name', 'LIKE', '%' . $request->search . '%');
+            });
+            if (count($complaint->get()) < 1) {
+                $customer = Customer::where('customer_id', $request->search)
+                    ->orwhere('customer_name', $request->search)->first();
+                if ($customer != null) {
+                    $complaint = $complaint->where('customer_id', $customer->id);
+                }
+            }
+            // ->orWhereHas('customer',function($query) use($request){
+            //     $query->where('customer_id',$request->search);
+            // });
+        }
+        if ($request->has('town') && $request->town != null && $request->town != '') {
+            $complaint = $complaint->where('town_id', $request->town);
+        }
+        if ($request->has('type_id') && $request->type_id != null && $request->type_id != '') {
+            $complaint = $complaint->where('type_id', $request->type_id);
+        }
+        if ($request->has('status') && $request->status != null && $request->status != '') {
+            if ($request->status == 1) {
+                // Fetch complaints that have at least one of the relationships
+                $complaint = $complaint->where(function ($query) {
+                    $query->whereHas('assignedComplaints');
+                });
+            } else {
+                // Fetch complaints that have none of the relationships
+                $complaint = $complaint->where(function ($query) {
+                    $query->whereDoesntHave('assignedComplaints');
+                });
+            }
         }
         if(auth()->user()->role == 3)
         {
@@ -48,17 +82,23 @@ class ComplaintController extends Controller
                 $query->where('agent_id',auth()->user()->agent->id);
             });
         }
-        $complaint = $complaint->OrderBy('id', 'DESC')->paginate(10);
+        $complaint = $complaint->paginate(10)->appends([
+            'type_id' => request()->get('type_id'),
+            'town' => request()->get('town'),
+            'search' => request()->get('search'),
+        ]);
         // dd($complaint->toArray());
         if ($request->has('type')) {
             return $complaint;
         }
+        $town = Town::all();
+        $comptype = ComplaintType::all();
         if(auth()->user()->role == 3)
         {
-            return view('agent_dashboard.pages.complaints.index', compact('complaint'));
+            return view('agent_dashboard.pages.complaints.index', compact('complaint', 'town', 'comptype'));
         }
         // dd($complaint->toArray());
-        return view('pages.complaints.index', compact('complaint'));
+        return view('pages.complaints.index', compact('complaint', 'town', 'comptype'));
     }
     public function create(Request $request)
     {
