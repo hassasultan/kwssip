@@ -87,9 +87,9 @@
                                         content.</p> --}}
                                 </div>
                                 <div class="toolbar">
+                                    <div class="alert alert-danger alert-dismissible d-none" id="show-error">
+                                    </div>
                                     <div class="form-row">
-                                        <div class="alert alert-danger alert-dismissible d-none" id="show-error">
-                                        </div>
                                         <div class="form-group col-auto">
                                             <label for="search" class="sr-only">Town</label>
                                             <select class="form-control select2" id="town-id">
@@ -131,6 +131,9 @@
                                             <input type="text" class="form-control" id="search1" value=""
                                                 placeholder="Search">
                                         </div>
+                                        <div class="form-group col-auto">
+                                            <button type="button" class="btn" onclick="reset()">Reset Filter</button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -149,8 +152,8 @@
                                                     <th>
                                                         Grievance Type / Priority</th>
                                                     {{-- <th>
-                                                        Title Description</th>
-                                                    <th> --}}
+                                                        Title Description</th> --}}
+                                                    <th>
                                                         Picture</th>
                                                     <th>
                                                         Created At</th>
@@ -247,6 +250,22 @@
             $(document).ready(function() {
 
                 // Call the function on document ready
+                function reset()
+                {
+                    search = null;
+                    town = null;
+                    type = null;
+                    change_status = null;
+                    startDate = null;
+                    endDate = null;
+                    $("#search1").val('');
+                    $("#town-id").val('');
+                    $("#type-id").val('');
+                    $("#status-id").val('');
+                    $("#startDate").val('');
+                    $("#endDate").val('');
+                    fetchDataOnReady();
+                }
                 fetchDataOnReady();
                 $("input").keyup(function() {
                     search = $(this).val();
@@ -276,6 +295,8 @@
                         startDate = $("#startDate").val();
                         endDate = $(this).val();
                         fetchDataOnReady();
+                        $("#show-error").addClass('d-none');
+
                     }
                 });
                 $("#startDate").change(function() {
