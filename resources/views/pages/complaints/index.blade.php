@@ -132,7 +132,7 @@
                                                 placeholder="Search">
                                         </div>
                                         <div class="form-group col-auto">
-                                            <button type="button" class="btn" onclick="reset()">Reset Filter</button>
+                                            <button type="button" class="btn btn-primary" id="reset-button">Reset Filter</button>
                                         </div>
                                     </div>
                                 </div>
@@ -219,9 +219,11 @@
                                         </table>
                                         <nav aria-label="Table Paging" class="mb-0 text-muted">
                                             <ul class="pagination justify-content-center mb-0" id="user-pagination">
-                                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">Previous</a>
+                                                </li>
                                                 <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                                <li class="page-item active"><a class="page-link" href="#">2</a>
+                                                </li>
                                                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                                                 <li class="page-item"><a class="page-link" href="#">Next</a></li>
                                             </ul>
@@ -250,22 +252,10 @@
             $(document).ready(function() {
 
                 // Call the function on document ready
-                function reset()
-                {
-                    search = null;
-                    town = null;
-                    type = null;
-                    change_status = null;
-                    startDate = null;
-                    endDate = null;
-                    $("#search1").val('');
-                    $("#town-id").val('');
-                    $("#type-id").val('');
-                    $("#status-id").val('');
-                    $("#startDate").val('');
-                    $("#endDate").val('');
-                    fetchDataOnReady();
-                }
+                $("#reset-button").click(function() {
+                    resetFilters();
+                });
+
                 fetchDataOnReady();
                 $("input").keyup(function() {
                     search = $(this).val();
@@ -285,13 +275,10 @@
                 });
                 $("#endDate").change(function() {
 
-                    if($("#startDate").val() == "")
-                    {
+                    if ($("#startDate").val() == "") {
                         $("#show-error").html("Please Select Start Date...");
                         $("#show-error").removeClass('d-none');
-                    }
-                    else
-                    {
+                    } else {
                         startDate = $("#startDate").val();
                         endDate = $(this).val();
                         fetchDataOnReady();
@@ -300,8 +287,7 @@
                     }
                 });
                 $("#startDate").change(function() {
-                    if($("#endDate").val() != "")
-                    {
+                    if ($("#endDate").val() != "") {
                         $("#endDate").trigger('change');
                     }
                 });
@@ -309,6 +295,23 @@
 
             });
 
+            function resetFilters() {
+                let search = null;
+                let town = null;
+                let type = null;
+                let change_status = null;
+                let startDate = null;
+                let endDate = null;
+
+                $("#search1").val('');
+                $("#town-id").val('').trigger('change'); // Trigger change for select2
+                $("#type-id").val('').trigger('change');
+                $("#status-id").val('').trigger('change');
+                $("#startDate").val('');
+                $("#endDate").val('');
+
+                fetchDataOnReady(); // Ensure this function exists
+            }
             var url = '';
             if ({{ auth()->user()->role }} == 1) {
                 url = "{{ route('admin.compaints-management.index') }}";
@@ -437,7 +440,8 @@
                         html += row.assigned_complaints == null ? '<a href="' +
                             "{{ route('admin.compaints-management.details', '') }}/" + row.id +
                             '" class="text-secondary font-weight-bold text-xs m-3" data-toggle="tooltip" data-original-title="Edit user">Assign</a>' :
-                            '<a href="{{ route('admin.agent-management.details', '') }}/' + row.assigned_complaints.agent_id +
+                            '<a href="{{ route('admin.agent-management.details', '') }}/' + row.assigned_complaints
+                            .agent_id +
                             '" class="text-secondary font-weight-bold text-xs m-3" data-toggle="tooltip" data-original-title="Edit user">Already Assigned</a>';
                     } else {
                         html += row.assigned_complaints == null ? '<a href="' +
