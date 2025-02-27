@@ -309,7 +309,7 @@
                 $("#status-id").val('').trigger('change');
                 $("#startDate").val('');
                 $("#endDate").val('');
-
+                console.log('reset');
                 fetchDataOnReady(); // Ensure this function exists
             }
             var url = '';
@@ -348,6 +348,8 @@
             }
             // Function to send AJAX request on document ready
             function fetchDataOnReady() {
+                console.log('Start '+startDate);
+                console.log('End '+endDate);
                 $.ajax({
                     url: url,
                     type: "GET",
