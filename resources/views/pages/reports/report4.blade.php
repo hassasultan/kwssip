@@ -32,92 +32,79 @@
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
 </head>
 
-<body class="vertical dark  ">
-    <div id="app" class="wrapper">
-        <div class="container p-4 bg-white  text-center " id="getPrint">
-            <div class="bg-white m-auto">
-                <div class="row">
-                    <div class="col-5">
-                        <img src="{{ asset('assets/images/unnamed.png') }}" class="img-fluid" alt="main_logo"
-                            style="width: 200px;">
-                    </div>
-                    <div class="col-7 text-end" style=" padding-top:2.4rem;">
-                        <h5 class=" fs-1">KW&SC-CMP</h5>
-                        <p style="font-size: 1.2rem"><span class="bg-dark text-white">COMPLAINT TYPE REPORT</span></p>
-                        <h5 style="font-size: 0.8rem">ISSUE DATE: {{ \Carbon\Carbon::now()->format('d F Y') }}
-                        </h5>
-                    </div>
-                    <div class="col-12 mt-2">
-                        <div class="text-center mt-4">
-                            <b>From {{ \Carbon\Carbon::parse($dateS)->format('d F Y') }} to
-                                {{ \Carbon\Carbon::parse($dateE)->format('d F Y') }}</b>
-                            <br />
-                            @if ($town != null)
-                                <b>Town : {{ $town->town }}</b>
-                            @endif
-                            @if ($subtown != null)
-                                <b>UC : {{ $subtown->title }}</b>
-                            @endif
-                            @if ($type != null)
-                                <b>Complaint Type : {{ $type->title }}</b>
-                            @endif
-                            @if ($source != null)
-                                <b>Source : {{ $source }}</b>
-                            @endif
-                            @if ($prio != null)
-                                <b>Priority : {{ $prio->title }}</b>
-                            @endif
-                            @if ($consumer != null)
-                                <b>Consumer Number : {{ $consumer }}</b>
-                            @endif
-                        </div>
-
-                        <div class="table mt-4">
-                            <table class="table  table-striped">
-                                <thead>
-                                    <tr style="background-color:#5b9bd5; color: #FFF !important;">
-                                        <th class="text-white">Date</th>
-                                        @foreach (array_unique(array_column($complaints->toArray(), 'type_id')) as $complaintTypeId)
-                                            <th class="text-white">{{ $complaints->firstWhere('type_id', $complaintTypeId)->type->title }}
-                                            </th>
-                                        @endforeach
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($complaints->groupBy('date') as $date => $complaintsByDate)
+<body class="vertical dark">
+        <div id="app" class="wrapper">
+                <div class="container p-4 bg-white text-center" id="getPrint">
+                    <div class="bg-white m-auto">
+                        <div class="row">
+                            <div class="col-5">
+                                <img src="{{ asset('assets/images/unnamed.png') }}" class="img-fluid" alt="main_logo"
+                                    style="width: 200px;">
+                            </div>
+                            <div class="col-7 text-end" style="padding-top:2.4rem;">
+                            <h5 class=" fs-1">KW&SC-CMP</h5>
+                            <h2 class="mb-4">Turn Around Time Report</h2>
+                                <p style="font-size: 1.2rem">
+                                    <span class="bg-dark text-white">TAT Filter Report</span>
+                                </p>
+                                <p>
+                                    <strong>Report Duration:</strong> From {{ $dateS }} to {{ $dateE }}
+                                </p>
+                                <h5 style="font-size: 0.8rem">
+                                    ISSUE DATE: {{ \Carbon\Carbon::now()->format('d F Y') }}
+                                </h5>
+                            </div>
+                            <div class="table mt-4">
+                                <table class="table table-striped">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $date }}</td>
-                                            @foreach ($complaints->pluck('type')->unique('id') as $complaintType)
-                                                @php
-                                                    $count = $complaintsByDate
-                                                        ->where('type_id', $complaintType->id)
-                                                        ->sum('num_complaints');
-                                                @endphp
-                                                <td>{{ $count ?? 0 }}</td>
-                                            @endforeach
-                                            {{-- @foreach (array_unique(array_column($complaintsByDate->toArray(), 'type_id')) as $complaintTypeId)
-                                                <td>{{ $complaintsByDate->where('type_id', $complaintTypeId)->sum('num_complaints') }}</td>
-                                            @endforeach --}}
+                                            <th><b>Complaint</b></th>
+                                            <th><b>Complain Type</b></th>
+                                            <th><b>Grievance Type</b></th>
+                                            <th><b>Customer Name</b></th>
+                                            <th><b>Phone</b></th>
+                                            <th><b>Executive Engineer</b></th>
+                                            <th><b>Created Date</b></th>
+                                            <th><b>Resolved Date</b></th>
+                                            <th><b>Priority</b></th>
+                                            <th><b>Turnaround Time<b></th>
+                                            <th><b>Time in Hours</b></th>
                                         </tr>
-                                    @endforeach
-                                    <tr>
-                                        <td><strong>Total</strong></td>
-                                        @foreach (array_unique(array_column($complaints->toArray(), 'type_id')) as $complaintTypeId)
-                                            <td><b>{{ $complaints->where('type_id', $complaintTypeId)->sum('num_complaints') }}</b>
-                                            </td>
-                                        @endforeach
-                                    </tr>
-                                </tbody>
-                            </table>
-
+                                    </thead>
+                                    <tbody>
+                                        @forelse($TATcompleteddetails as $record)
+                                            <tr>
+                                                <td>{{ $record->Complaint }}</td>
+                                                <td>{{ $record->COMPLAIN_TYPE }}</td>
+                                                <td>{{ $record->GRIEVANCE_TYPE }}</td>
+                                                <td>{{ $record->customer_name }}</td>
+                                                <td>{{ $record->phone }}</td>
+                                                <td>{{ $record->Executive_Engineer }}</td>
+                                                <td>{{ $record->CreatedDate }}</td>
+                                                <td>{{ $record->ResolvedDate }}</td>
+                                                <td>{{ $record->PRIORITY }}</td>
+                                                <td>{{ $record->AgingTime ?? '' }}</td>
+                                                <td>{{ $record->TimeInHours ?? '' }}</td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="11" class="text-center">No records found for the selected dates.</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+
     {{-- <button type="button"onclick="getPrint()" class="btn btn-primary">print</button> --}}
+
+
+
+
+
 
     <!--   Core JS Files   -->
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
