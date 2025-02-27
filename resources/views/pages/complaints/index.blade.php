@@ -350,8 +350,8 @@
             }
             // Function to send AJAX request on document ready
             function fetchDataOnReady() {
-                console.log('Start '+startDate);
-                console.log('End '+endDate);
+                // console.log('Start '+startDate);
+                // console.log('End '+endDate);
                 $.ajax({
                     url: url,
                     type: "GET",

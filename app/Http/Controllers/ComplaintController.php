@@ -93,6 +93,8 @@ class ComplaintController extends Controller
             'type_id' => request()->get('type_id'),
             'town' => request()->get('town'),
             'search' => request()->get('search'),
+            'startDate' => request()->get('startDate'),
+            'endDate' => request()->get('endDate'),
         ]);
         // dd($complaint->toArray());
         if ($request->has('type')) {
