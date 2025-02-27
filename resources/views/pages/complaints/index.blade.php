@@ -296,19 +296,21 @@
             });
 
             function resetFilters() {
-                let search = null;
-                let town = null;
-                let type = null;
-                let change_status = null;
-                let startDate = null;
-                let endDate = null;
-
                 $("#search1").val('');
                 $("#town-id").val('').trigger('change'); // Trigger change for select2
                 $("#type-id").val('').trigger('change');
                 $("#status-id").val('').trigger('change');
                 $("#startDate").val('');
                 $("#endDate").val('');
+
+                search = null;
+                town = null;
+                type = null;
+                change_status = null;
+                startDate = null;
+                endDate = null;
+
+
                 console.log('reset');
                 fetchDataOnReady(); // Ensure this function exists
             }
