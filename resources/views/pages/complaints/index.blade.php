@@ -88,7 +88,7 @@
                                 </div>
                                 <div class="toolbar">
                                     <div class="form-row">
-                                        <div class="form-group col-auto mr-auto">
+                                        <div class="alert alert-danger alert-dismissible d-none" id="show-error">
                                         </div>
                                         <div class="form-group col-auto">
                                             <label for="search" class="sr-only">Town</label>
@@ -117,6 +117,16 @@
                                             </select>
                                         </div>
                                         <div class="form-group col-auto">
+                                            <label for="startDate" class="sr-only">Start Date</label>
+                                            <input type="date" class="form-control" id="startDate" value=""
+                                                placeholder="Select Start Date">
+                                        </div>
+                                        <div class="form-group col-auto">
+                                            <label for="endDate" class="sr-only">End Date</label>
+                                            <input type="date" class="form-control" id="endDate" value=""
+                                                placeholder="Select End Date">
+                                        </div>
+                                        <div class="form-group col-auto">
                                             <label for="search" class="sr-only">Search</label>
                                             <input type="text" class="form-control" id="search1" value=""
                                                 placeholder="Search">
@@ -130,17 +140,17 @@
                                                 <tr>
                                                     <th>
                                                         Grievance ID</th>
-                                                    <th>
-                                                        Consumer Number</th>
+                                                    {{-- <th>
+                                                        Consumer Number</th> --}}
                                                     <th>
                                                         Consumer Name</th>
                                                     <th>
-                                                        Town</th>
+                                                        Project</th>
                                                     <th>
                                                         Grievance Type / Priority</th>
-                                                    <th>
+                                                    {{-- <th>
                                                         Title Description</th>
-                                                    <th>
+                                                    <th> --}}
                                                         Picture</th>
                                                     <th>
                                                         Created At</th>
@@ -228,6 +238,8 @@
             var town = null;
             var type = null;
             var change_status = null;
+            var startDate = null;
+            var endDate = null;
             // $("input").keyup(function() {
             //     search = $(this).val();
             //     fetchDataOnReady();
@@ -252,6 +264,27 @@
                     change_status = $(this).val();
                     fetchDataOnReady();
                 });
+                $("#endDate").change(function() {
+
+                    if($("#startDate").val() == "")
+                    {
+                        $("#show-error").html("Please Select Start Date...");
+                        $("#show-error").removeClass('d-none');
+                    }
+                    else
+                    {
+                        startDate = $("#startDate").val();
+                        endDate = $(this).val();
+                        fetchDataOnReady();
+                    }
+                });
+                $("#startDate").change(function() {
+                    if($("#endDate").val() != "")
+                    {
+                        $("#endDate").trigger('change');
+                    }
+                });
+
 
             });
 
@@ -273,6 +306,8 @@
                         search: search,
                         town: town,
                         type_id: type,
+                        startDate: startDate,
+                        endDate: endDate,
                         page: page
                     },
                     success: function(response) {
@@ -297,6 +332,8 @@
                         search: search,
                         status: change_status,
                         town: town,
+                        startDate: startDate,
+                        endDate: endDate,
                         type_id: type
                     },
                     success: function(response) {
@@ -322,13 +359,13 @@
                     html += '<td class="w-20">';
                     html += '<p class="text-xs font-weight-bold mb-0">' + row.comp_num + '</p>';
                     html += '</td>';
-                    html += '<td class="w-20">';
-                    if (row.customer_id != 0) {
-                        html += '<p class="text-xs font-weight-bold mb-0">' + row.customer.customer_id + '</p>';
-                    } else {
-                        html += '<p class="text-xs font-weight-bold mb-0">' + row.customer_num + '</p>';
-                    }
-                    html += '</td>';
+                    // html += '<td class="w-20">';
+                    // if (row.customer_id != 0) {
+                    //     html += '<p class="text-xs font-weight-bold mb-0">' + row.customer.customer_id + '</p>';
+                    // } else {
+                    //     html += '<p class="text-xs font-weight-bold mb-0">' + row.customer_num + '</p>';
+                    // }
+                    // html += '</td>';
                     html += '<td class="w-20">';
                     if (row.customer_id != 0) {
                         html += '<p class="text-xs font-weight-bold mb-0">' + row.customer.customer_name + '</p>';
@@ -344,9 +381,9 @@
                     html += '<p class="text-xs font-weight-bold mb-0">' + (row.type ? row.type.title : '') + '</p>';
                     html += '<p class="text-xs font-weight-bold mb-0">' + (row.prio ? row.prio.title : '') + '</p>';
                     html += '</td>';
-                    html += '<td class="align-middle text-center text-sm">';
-                    html += '<p class="text-xs text-secondary mb-0">' + row.title + '</p>';
-                    html += '</td>';
+                    // html += '<td class="align-middle text-center text-sm">';
+                    // html += '<p class="text-xs text-secondary mb-0">' + row.title + '</p>';
+                    // html += '</td>';
                     html += '<td class="align-middle text-center text-sm">';
                     if (row.image != null) {
                         html += '<img src="{{ asset('storage/') }}/' + row.image +

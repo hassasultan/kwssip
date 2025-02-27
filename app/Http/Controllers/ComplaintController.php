@@ -20,6 +20,7 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Carbon\Carbon;
 
 class ComplaintController extends Controller
 {
@@ -59,6 +60,12 @@ class ComplaintController extends Controller
         }
         if ($request->has('town') && $request->town != null && $request->town != '') {
             $complaint = $complaint->where('town_id', $request->town);
+        }
+        if ($request->filled('startDate') && $request->filled('endDate')) {
+            $startDate = Carbon::parse($request->startDate)->startOfDay(); // 00:00:00
+            $endDate = Carbon::parse($request->endDate)->endOfDay(); // 23:59:59
+
+            $complaint = $complaint->whereBetween('created_at', [$startDate, $endDate]);
         }
         if ($request->has('type_id') && $request->type_id != null && $request->type_id != '') {
             $complaint = $complaint->where('type_id', $request->type_id);
