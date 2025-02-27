@@ -43,7 +43,7 @@
                                 enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="form-group col-12">
-                                        <h6>Town Wise Reports</h6>
+                                        <h6>Site Wise Reports</h6>
                                     </div>
                                     <div class="form-group col-12">
                                         <label>From Date</label>
@@ -58,7 +58,7 @@
                                             required />
                                     </div>
                                     <div class="form-group col-12">
-                                        <label>Select Town*</label>
+                                        <label>Select Project*</label>
                                         <select name="town_id"  class="select2 form-control fs-14  h-50px">
                                             @foreach ($town as $row)
                                                 <option value="{{ $row->id }}">{{ $row->town }}</option>
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                {{-- <div class="col-md-3">
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <form role="form" method="get" action="{{ route('compaints-reports.reports') }}"
@@ -96,7 +96,7 @@
                                             value="{{ old('title') }}" required />
                                     </div>
                                     <div class="form-group col-12">
-                                        <label>Select UC/Mohalla*</label>
+                                        <label>Select Project Location*</label>
                                         <select name="sub_town_id"
                                             class="select2 form-control fs-14  h-50px">
                                             @foreach ($subtown as $row)
@@ -112,7 +112,7 @@
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-md-3">
                     <div class="card shadow mb-4">
                         <div class="card-body">
@@ -120,7 +120,7 @@
                                 enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="form-group col-12">
-                                        <h6>Type Wise Reports</h6>
+                                        <h6>Complaint Wise Reports</h6>
                                     </div>
                                     <div class="form-group col-12">
                                         <label>From Date</label>
@@ -233,7 +233,7 @@
                 </div>
 
 
-                <div class="col-md-3">
+                {{-- <div class="col-md-3">
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <form role="form" method="get" action="{{ route('compaints-reports.reports') }}"
@@ -268,7 +268,7 @@
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
 
 
@@ -325,7 +325,7 @@
                                             value="{{ old('title') }}" required />
                                     </div>
                                     <div class="form-group col-12">
-                                        <label>Select Town*</label>
+                                        <label>Select Project*</label>
                                         <select name="town_id"  class="select2 form-control fs-14  h-50px">
                                             @foreach ($town as $row)
                                                 <option value="{{ $row->id }}">{{ $row->town }}
@@ -408,7 +408,7 @@
                                             value="{{ old('title') }}" required />
                                     </div>
                                     <div class="form-group col-12">
-                                        <label>Select Town*</label>
+                                        <label>Select Project* </label>
                                         <select name="town_id"  class="select2 form-control fs-14  h-50px">
                                             @foreach ($town as $row)
                                                 <option value="{{ $row->id }}">{{ $row->town }}
@@ -490,7 +490,7 @@
                                             value="{{ old('title') }}" required />
                                     </div>
                                     <div class="form-group col-12">
-                                        <label>Select Town*</label>
+                                        <label>Select Project* </label>
                                         <select name="town_id" class="select2 form-control fs-14  h-50px">
                                             @foreach ($town as $row)
                                                 <option value="{{ $row->id }}">{{ $row->town }}</option>
@@ -571,7 +571,7 @@
                                             value="{{ old('title') }}" required />
                                     </div>
                                     <div class="form-group col-12">
-                                        <label>Select Town*</label>
+                                        <label>Select Project* </label>
                                         <select name="town_id"  class="select2 form-control fs-14  h-50px">
                                             @foreach ($town as $row)
                                                 <option value="{{ $row->id }}">{{ $row->town }}
@@ -605,7 +605,7 @@
                                 enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="form-group col-12">
-                                        <h6>Executive Engineer Performance Overall</h6>
+                                        <h6>Agent Performance Overall</h6>
                                     </div>
                                     <div class="form-group col-12">
                                         <label>From Date</label>
@@ -637,7 +637,7 @@
                                 enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="form-group col-12">
-                                        <h6>Executive Engineer Performance Department Wise</h6>
+                                        <h6>Agent Performance Department Wise</h6>
                                     </div>
                                     <div class="form-group col-12">
                                         <label>From Date</label>
@@ -678,7 +678,7 @@
                                 enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="form-group col-12">
-                                        <h6>Executive Engineer Performance Town Wise</h6>
+                                        <h6>Agent Performance Town Wise</h6>
                                     </div>
                                     <div class="form-group col-12">
                                         <label>From Date</label>
@@ -693,7 +693,7 @@
                                             value="{{ old('title') }}" required />
                                     </div>
                                     <div class="form-group col-12">
-                                        <label>Select Town*</label>
+                                        <label>Select Project* </label>
                                         <select name="town_id"  class="select2 form-control fs-14  h-50px">
                                             @foreach ($town as $row)
                                                 <option value="{{ $row->id }}">{{ $row->town }}</option>
@@ -731,7 +731,7 @@
                                             value="{{ old('title') }}" required />
                                     </div>
                                     <div class="form-group col-12">
-                                        <label>Select Town*</label>
+                                        <label>Select Project* </label>
                                         <select name="town_id" id="town-id" class=" form-control fs-14  h-50px">
                                             <option disabled selected> -- Select Town --</option>
                                             @foreach ($town as $row)
@@ -740,7 +740,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-12">
-                                        <label>Select SubTown*</label>
+                                        <label>Select Project Location* </label>
                                         <select name="sub_town_id" id="sub_town_id" class="select2 form-control fs-14  h-50px" >
                                             <option disabled selected> -- Select SubTown --</option>
                                             @foreach ($subtown as $row)
