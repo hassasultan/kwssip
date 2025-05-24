@@ -265,6 +265,19 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-md-6 mb-4">
+                        <a href="{{route('front.anonymous')}}" target="_blank" class="card-link">
+                            <div class="card text-center p-4 card-extra-css">
+                                <div class="card-body">
+                                    {{-- <i class="far fa-file-plus"></i> --}}
+                                    {{-- <i class="fas fa-file icon"></i> --}}
+                                    {{-- <i class="fas fa-plus-circle icon"></i> --}}
+                                    <img src="{{ asset('assets/images/add-file-color.png') }}" style="width: 80px;"/>
+                                    <p class="card-text mt-3">Add Anonymous Complaint</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- <div class="col-lg-4 col-md-6 mb-4">
                         <a href="https://complain.kwsc.gos.pk/add/complaint" target="_blank" class="card-link">
                             <div class="card text-center p-4 card-extra-css">
                                 <div class="card-body">
@@ -276,7 +289,7 @@
                                 </div>
                             </div>
                         </a>
-                    </div>
+                    </div> -->
                     {{-- <div class="col-lg-4 col-md-6 mb-4">
                         <a href="{{ route('front.home.connection') }}" class="card-link">
                             <div class="card text-center p-4">

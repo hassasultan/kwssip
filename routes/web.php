@@ -32,6 +32,7 @@ Route::get('/',function()
 })->name('web.home');
 Route::get('/track/complaint',[FrontendController::class, 'track_complaint'])->name('track.complaint');
 Route::get('/add/complaint',[FrontendController::class, 'create_compalint'])->name('front.home');
+Route::get('/anonymous/complaint',[FrontendController::class, 'anonymous'])->name('front.anonymous');
 Route::get('/add/new/connection',[FrontendController::class, 'create_connection_request'])->name('front.home.connection');
 Route::get('/update/connection/data',[FrontendController::class, 'create_connection_request'])->name('update.home.connection');
 Route::post('/complaint/store',[FrontendController::class, 'store'])->name('front.compalaint.store');

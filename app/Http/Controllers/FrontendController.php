@@ -29,7 +29,7 @@ class FrontendController extends Controller
         return Validator::make($data, [
             'town_id' => ['required', 'numeric', 'exists:towns,id'],
             'sub_town_id' => ['required', 'numeric', 'exists:subtown,id'],
-            'g-recaptcha-response' => ['required','captcha'],
+            // 'g-recaptcha-response' => ['required','captcha'],
             // 'title' => ['required', 'string'],
             // 'source' => ['required', 'string'],
             'description' => ['required', 'string'],
@@ -53,6 +53,23 @@ class FrontendController extends Controller
 
         return view('welcome', compact('customer', 'town', 'type', 'prio', 'subtown', 'subtype', 'source'));
 
+    }
+    public function anonymous(Request $request)
+    {
+        $town = Town::all();
+        $type = ComplaintType::all();
+        $subtype = SubType::all();
+        $prio = Priorities::all();
+        $subtown = SubTown::all();
+        $source = Source::all();
+        $customer = NULL;
+        if ($request->has('search')) {
+            $customer = Customer::where('customer_id', $request->search)->first();
+            if ($customer == null) {
+                return redirect()->back()->with('error', "Customer Not Found...");
+            }
+        }
+        return view('anonymous', compact('customer', 'town', 'type', 'prio', 'subtown', 'subtype', 'source'));
     }
     public function create_connection_request(Request $request)
     {
@@ -94,6 +111,7 @@ class FrontendController extends Controller
     }
     public function store(Request $request)
     {
+        // dd($request->all());
         $valid = $this->validator($request->all());
         if ($valid->fails()) {
             // dd($valid->errors());
@@ -107,6 +125,10 @@ class FrontendController extends Controller
             $data['source'] = "webpage";
             if ($request->has('image') && $request->image != NULL) {
                 $data['image'] = $this->complaintImage($request->image);
+            }
+            if($data['customer_name'] == NULL)
+            {
+                $data['customer_name'] = "Anonymous";
             }
             $complaint = Complaints::create($data);
             if ($complaint->customer_id != 0) {
