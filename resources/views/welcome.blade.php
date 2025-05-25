@@ -167,15 +167,24 @@
             <div class="bg-main-page col-12 mt-3 make-header desktop-header">
                 {{-- <div class="container"> --}}
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <img src="{{ asset('assets/images/kwssip.png') }}" class="img-fluid" alt="main_logo"
                             style="width: 200px; margin-top:14px;">
                     </div>
-                    <div class="col-md-7 pt-3">
+                    <div class="col-md-5 pt-3">
                         <h5 class="text-white" style="font-size: 1.8rem; margin-bottom:0% !important;">GRIEVANCE REDRESSAL MECHANISM
                         </h5>
                         <span class="text-white" style="font-size: 0.8rem">KWSSIP |
                             {{ \Carbon\Carbon::now()->format('d F Y') }}</span>
+                    </div>
+                    <div class="col-md-2 pt-3">
+                        <div id="google_translate_element"></div>
+                        <a target="_blank" class="btn btn-link text-white font-weight-bolder"
+                            href="{{ route('front.home') }}/#googtrans(en|en)">English</a>
+                        <a target="_blank" class="btn btn-link text-white font-weight-bolder"
+                            href="{{ route('front.home') }}/#googtrans(en|ur)">Urdu</a>
+                        <a target="_blank" class="btn btn-link text-white font-weight-bolder"
+                            href="{{ route('front.anonymous') }}/#googtrans(en|sd)">Sindhi</a>
                     </div>
                     <div class="col-md-1  text-right border-right mt-3">
                         <img src="{{ asset('assets/images/sg.png') }}" class="img-fluid" alt="main_logo"
@@ -384,7 +393,7 @@
                                             </div>
 
                                             <div class="form-group col-md-3 p-3">
-                                                <label>Select Grievance Type<span
+                                                <label>Select Complaint Type<span
                                                         class="item-required">*</span></label>
                                                 <select name="type_id" id="type_id"
                                                     class="form-control select2 border-dark" required>

@@ -253,7 +253,7 @@
                             <div class="card-header bg-grey">
                                 <div class="row">
                                     <div class="col-9">
-                                        <h5>Give Complaint Information Anonymously...</h5>
+                                        <h5>Anonymous Compaint...</h5>
                                     </div>
                                     <div class="col-3">
 
@@ -401,7 +401,7 @@
                                             </div>
 
                                             <div class="form-group col-md-3 p-3">
-                                                <label>Select Grievance Type<span
+                                                <label>Select Complaint Type<span
                                                         class="item-required">*</span></label>
                                                 <select name="type_id" id="type_id"
                                                     class="form-control select2 border-dark" required>
