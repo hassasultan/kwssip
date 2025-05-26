@@ -180,12 +180,12 @@
                     </div>
                     <div class="col-md-2 pt-3">
                         <div id="google_translate_element"></div>
-                        <a target="_blank" class="btn btn-link text-white font-weight-bolder"
-                            href="{{ route('front.home') }}/#googtrans(en|en)">English</a>
-                        <a target="_blank" class="btn btn-link text-white font-weight-bolder"
-                            href="{{ route('front.home') }}/#googtrans(en|ur)">Urdu</a>
-                        <a target="_blank" class="btn btn-link text-white font-weight-bolder"
-                            href="{{ route('front.anonymous') }}/#googtrans(en|sd)">Sindhi</a>
+                        <a class="btn btn-link text-white font-weight-bolder"
+                            onclick="changeLanguage('en')">English</a>
+                        <a class="btn btn-link text-white font-weight-bolder"
+                            onclick="changeLanguage('ur')">Urdu</a>
+                        <a class="btn btn-link text-white font-weight-bolder"
+                            onclick="changeLanguage('sd')">Sindhi</a>
                     </div>
                     <div class="col-md-1  text-right border-right mt-3">
                         <img src="{{ asset('assets/images/sg.png') }}" class="img-fluid" alt="main_logo"
@@ -226,12 +226,12 @@
                 </div>
                  <div class="w-100 text-right">
                     <div id="google_translate_element"></div>
-                    <a target="_blank" class="btn btn-link text-white font-weight-bolder"
-                        href="{{ route('front.anonymous') }}./#googtrans(en|en)">English</a>
-                    <a target="_blank" class="btn btn-link text-white font-weight-bolder"
-                        href="{{ route('front.anonymous') }}./#googtrans(en|ur)">Urdu</a>
-                    <a target="_blank" class="btn btn-link text-white font-weight-bolder"
-                        href="{{ route('front.anonymous') }}./#googtrans(en|sd)">Sindhi</a>
+                    <a class="btn btn-link text-white font-weight-bolder"
+                        onclick="changeLanguage('en')">English</a>
+                    <a class="btn btn-link text-white font-weight-bolder"
+                        onclick="changeLanguage('ur')">Urdu</a>
+                    <a class="btn btn-link text-white font-weight-bolder"
+                        onclick="changeLanguage('sd')">Sindhi</a>
                 </div> 
                 {{-- </div> --}}
             </div>
@@ -948,3 +948,20 @@
 </body>
 
 </html>
+
+<script type="text/javascript">
+    function changeLanguage(lang) {
+        var iframe = document.getElementsByClassName('goog-te-menu-frame')[0];
+        if (!iframe) return;
+        
+        var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+        var links = iframeDocument.getElementsByTagName('a');
+        
+        for (var i = 0; i < links.length; i++) {
+            if (links[i].getAttribute('lang') === lang) {
+                links[i].click();
+                break;
+            }
+        }
+    }
+</script>
