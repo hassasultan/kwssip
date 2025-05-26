@@ -181,9 +181,9 @@
                     <div class="col-md-2 pt-3">
                         <div id="google_translate_element"></div>
                         <a target="_blank" class="btn btn-link text-white font-weight-bolder"
-                            href="{{ route('front.home') }}/#googtrans(en|en)">English</a>
+                            href="{{ route('front.anonymous') }}/#googtrans(en|en)">English</a>
                         <a target="_blank" class="btn btn-link text-white font-weight-bolder"
-                            href="{{ route('front.home') }}/#googtrans(en|ur)">Urdu</a>
+                            href="{{ route('front.anonymous') }}/#googtrans(en|ur)">Urdu</a>
                         <a target="_blank" class="btn btn-link text-white font-weight-bolder"
                             href="{{ route('front.anonymous') }}/#googtrans(en|sd)">Sindhi</a>
                     </div>
