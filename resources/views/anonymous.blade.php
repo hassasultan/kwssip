@@ -253,7 +253,7 @@
                             <div class="card-header bg-grey">
                                 <div class="row">
                                     <div class="col-9">
-                                        <h5>Anonymous Compaint...</h5>
+                                        <h5>Anonymous Complaint...</h5>
                                     </div>
                                     <div class="col-3">
 
