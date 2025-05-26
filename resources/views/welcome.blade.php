@@ -404,7 +404,7 @@
                                                         class="item-required">*</span></label>
                                                 <select name="type_id" id="type_id"
                                                     class="form-control select2 border-dark" required>
-                                                    <option selected disabled>-- Select Grievance Type --</option>
+                                                    <option selected disabled>-- Select Complaint Type --</option>
 
                                                     @foreach ($type as $row)
                                                         <option value="{{ $row->id }}">{{ $row->title }}
