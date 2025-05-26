@@ -227,11 +227,11 @@
                  <div class="w-100 text-right">
                     <div id="google_translate_element"></div>
                     <a target="_blank" class="btn btn-link text-white font-weight-bolder"
-                        href="./#googtrans(en|en)">English</a>
+                        href="{{ route('front.anonymous') }}./#googtrans(en|en)">English</a>
                     <a target="_blank" class="btn btn-link text-white font-weight-bolder"
-                        href="./#googtrans(en|ur)">Urdu</a>
+                        href="{{ route('front.anonymous') }}./#googtrans(en|ur)">Urdu</a>
                     <a target="_blank" class="btn btn-link text-white font-weight-bolder"
-                        href="./#googtrans(en|sd)">Sindhi</a>
+                        href="{{ route('front.anonymous') }}./#googtrans(en|sd)">Sindhi</a>
                 </div> 
                 {{-- </div> --}}
             </div>

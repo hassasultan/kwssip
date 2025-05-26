@@ -347,6 +347,13 @@
                                                     value="{{ old('phone') }}" required />
                                             </div>
                                             <div class="form-group col-md-3 p-3">
+                                                <label>Applicant CNIC</label>
+                                                <input type="tel"
+                                                    class="form-control border-bottom border-1 border-dark"
+                                                    placeholder="Enter Phone Number Here..." name="customer_cnic"
+                                                    value="{{ old('customer_cnic') }}" />
+                                            </div>
+                                            <div class="form-group col-md-3 p-3">
                                                 <label>Applicant Email</label>
                                                 <input type="email"
                                                     class="form-control border-bottom border-1 border-dark"
