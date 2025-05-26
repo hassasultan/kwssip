@@ -180,12 +180,12 @@
                     </div>
                     <div class="col-md-2 pt-3">
                         <div id="google_translate_element"></div>
-                        <a class="btn btn-link text-white font-weight-bolder"
-                            href="javascript:void(0)" onclick="doGTranslate('en|en')">English</a>
-                        <a class="btn btn-link text-white font-weight-bolder"
-                            href="javascript:void(0)" onclick="doGTranslate('en|ur')">Urdu</a>
-                        <a class="btn btn-link text-white font-weight-bolder"
-                            href="javascript:void(0)" onclick="doGTranslate('en|sd')">Sindhi</a>
+                        <a target="_blank" class="btn btn-link text-white font-weight-bolder"
+                            href="{{ route('front.home') }}/#googtrans(en|en)">English</a>
+                        <a target="_blank" class="btn btn-link text-white font-weight-bolder"
+                            href="{{ route('front.home') }}/#googtrans(en|ur)">Urdu</a>
+                        <a target="_blank" class="btn btn-link text-white font-weight-bolder"
+                            href="{{ route('front.anonymous') }}/#googtrans(en|sd)">Sindhi</a>
                     </div>
                     <div class="col-md-1  text-right border-right mt-3">
                         <img src="{{ asset('assets/images/sg.png') }}" class="img-fluid" alt="main_logo"
@@ -226,12 +226,12 @@
                 </div>
                  <div class="w-100 text-right">
                     <div id="google_translate_element"></div>
-                    <a class="btn btn-link text-white font-weight-bolder"
-                        href="javascript:void(0)" onclick="doGTranslate('en|en')">English</a>
-                    <a class="btn btn-link text-white font-weight-bolder"
-                        href="javascript:void(0)" onclick="doGTranslate('en|ur')">Urdu</a>
-                    <a class="btn btn-link text-white font-weight-bolder"
-                        href="javascript:void(0)" onclick="doGTranslate('en|sd')">Sindhi</a>
+                    <a target="_blank" class="btn btn-link text-white font-weight-bolder"
+                        href="{{ route('front.anonymous') }}./#googtrans(en|en)">English</a>
+                    <a target="_blank" class="btn btn-link text-white font-weight-bolder"
+                        href="{{ route('front.anonymous') }}./#googtrans(en|ur)">Urdu</a>
+                    <a target="_blank" class="btn btn-link text-white font-weight-bolder"
+                        href="{{ route('front.anonymous') }}./#googtrans(en|sd)">Sindhi</a>
                 </div> 
                 {{-- </div> --}}
             </div>
@@ -259,7 +259,7 @@
 
 
                                         {{-- <button onclick="translateTo('en')">English</button>
-                                        <button onclick="translateTo('ur')">Urdu</button> --}}
+                                        <btton onclick="translateTo('ur')">Urdu</button> --}}
                                     </div>
                                 </div>
                             </div>
@@ -627,21 +627,15 @@
             @endif
         });
     </script>
-    <script type="text/javascript">
-        function doGTranslate(lang_pair) {
-            var lang = lang_pair.split('|')[1];
-            var select = document.querySelector('.goog-te-combo');
-            if (select) {
-                select.value = lang;
-                select.dispatchEvent(new Event('change'));
-            }
-        }
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
     </script>
+
     <script type="text/javascript">
-        function googleTranslateElementInit(lang) {
-            var cookie = 'googtrans=/' + lang;
-            document.cookie = cookie;
-            location.reload();
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
         }
     </script>
     {{-- <script type="text/javascript">
@@ -954,13 +948,3 @@
 </body>
 
 </html>
-
-<script type="text/javascript">
-    function changeLanguage(lang) {
-        var select = document.querySelector('.goog-te-combo');
-        if (select) {
-            select.value = lang;
-            select.dispatchEvent(new Event('change'));
-        }
-    }
-</script>
