@@ -181,11 +181,11 @@
                     <div class="col-md-2 pt-3">
                         <div id="google_translate_element"></div>
                         <a class="btn btn-link text-white font-weight-bolder"
-                            onclick="changeLanguage('en')">English</a>
+                            href="javascript:void(0)" onclick="doGTranslate('en|en')">English</a>
                         <a class="btn btn-link text-white font-weight-bolder"
-                            onclick="changeLanguage('ur')">Urdu</a>
+                            href="javascript:void(0)" onclick="doGTranslate('en|ur')">Urdu</a>
                         <a class="btn btn-link text-white font-weight-bolder"
-                            onclick="changeLanguage('sd')">Sindhi</a>
+                            href="javascript:void(0)" onclick="doGTranslate('en|sd')">Sindhi</a>
                     </div>
                     <div class="col-md-1  text-right border-right mt-3">
                         <img src="{{ asset('assets/images/sg.png') }}" class="img-fluid" alt="main_logo"
@@ -227,11 +227,11 @@
                  <div class="w-100 text-right">
                     <div id="google_translate_element"></div>
                     <a class="btn btn-link text-white font-weight-bolder"
-                        onclick="changeLanguage('en')">English</a>
+                        href="javascript:void(0)" onclick="doGTranslate('en|en')">English</a>
                     <a class="btn btn-link text-white font-weight-bolder"
-                        onclick="changeLanguage('ur')">Urdu</a>
+                        href="javascript:void(0)" onclick="doGTranslate('en|ur')">Urdu</a>
                     <a class="btn btn-link text-white font-weight-bolder"
-                        onclick="changeLanguage('sd')">Sindhi</a>
+                        href="javascript:void(0)" onclick="doGTranslate('en|sd')">Sindhi</a>
                 </div> 
                 {{-- </div> --}}
             </div>
@@ -627,15 +627,21 @@
             @endif
         });
     </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
-    </script>
-
     <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
+        function doGTranslate(lang_pair) {
+            var lang = lang_pair.split('|')[1];
+            var select = document.querySelector('.goog-te-combo');
+            if (select) {
+                select.value = lang;
+                select.dispatchEvent(new Event('change'));
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        function googleTranslateElementInit(lang) {
+            var cookie = 'googtrans=/' + lang;
+            document.cookie = cookie;
+            location.reload();
         }
     </script>
     {{-- <script type="text/javascript">
@@ -951,17 +957,10 @@
 
 <script type="text/javascript">
     function changeLanguage(lang) {
-        var iframe = document.getElementsByClassName('goog-te-menu-frame')[0];
-        if (!iframe) return;
-        
-        var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-        var links = iframeDocument.getElementsByTagName('a');
-        
-        for (var i = 0; i < links.length; i++) {
-            if (links[i].getAttribute('lang') === lang) {
-                links[i].click();
-                break;
-            }
+        var select = document.querySelector('.goog-te-combo');
+        if (select) {
+            select.value = lang;
+            select.dispatchEvent(new Event('change'));
         }
     }
 </script>
