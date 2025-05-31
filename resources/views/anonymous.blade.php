@@ -254,6 +254,10 @@
                                 <div class="row">
                                     <div class="col-9">
                                         <h5>Anonymous Complaint...</h5>
+                                        <p>Note:</p>
+                                        <p>
+                                        To hide your Identity, complainant does not require to enter his/her name, phone number , address, Computerized National Identity card and email.
+                                        </p>
                                     </div>
                                     <div class="col-3">
 
@@ -279,7 +283,8 @@
                                     <div class="row">
             
                                         <div class="form-group col-md-3 p-3">
-                                            <label>Customer Number</label>
+                                            <label>
+                                                Customer Number</label>
                                             <input type="text" class="form-control border-bottom border-1 border-dark"
                                                 placeholder="Enter Customer Number for search ..." name="search" required
                                                 value="{{ old('search') }}" />
