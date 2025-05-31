@@ -458,6 +458,9 @@
                     }
                     html += '<a href="' + currentUrl + '/' + row.id +
                         '/edit" class="text-secondary font-weight-bold text-xs m-3" data-toggle="tooltip" data-original-title="Edit user">Edit</a>';
+                    html += '<a class="text-secondary font-weight-bold text-xs m-3" href="' +
+                        "{{ route('admin.compaints-management.details', '') }}/" + row.id +
+                        '">Detail</a>';
                     html += '</td>';
                     html += '</tr>';
                 });
