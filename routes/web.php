@@ -14,6 +14,8 @@ use App\Http\Controllers\SubTownController;
 use App\Http\Controllers\SubTypeController;
 use App\Http\Controllers\DistrictController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DepartmentHomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,9 @@ Route::get('/',function()
 {
     return view('tab');
 })->name('web.home');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', [HomeController::class, 'redirect_page'])->name('auth.home');
+});
 Route::get('/track/complaint',[FrontendController::class, 'track_complaint'])->name('track.complaint');
 Route::get('/add/complaint',[FrontendController::class, 'create_compalint'])->name('front.home');
 Route::get('/anonymous/complaint',[FrontendController::class, 'anonymous'])->name('front.anonymous');
@@ -80,7 +85,18 @@ Route::prefix('/admin')->group(function (){
 
     });
 });
+Route::prefix('/department')->group(function () {
+    Route::middleware(['IsDepartment'])->group(function () {
+        //users
+        Route::get('/home', [DepartmentHomeController::class,'home'])->name('department.home');
+        Route::get('/compaints-management', [ComplaintController::class,'index'])->name('deparment.complaint.index');
+        Route::get('/compaints-management/{id}/edit', [ComplaintController::class,'edit'])->name('deparment.complaint.edit');
+        Route::put('/compaints-management/{id}/update', [ComplaintController::class,'update'])->name('deparment.complaint.update');
+        Route::get('/compaints/details/{id}', [ComplaintController::class,'detail'])->name('deparment.complaint.detail');
+        Route::post('/compaints/solved/{id}', [ComplaintController::class,'solved_by_department'])->name('deparment.complaint.solved');
 
+    });
+});
 Route::prefix('/system')->group(function (){
     Route::middleware(['IsSystemUser'])->group(function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('system.home');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -40,7 +41,8 @@ class UserController extends Controller
     }
     public function create()
     {
-        return view('pages.user.create');
+        $department = Department::all();
+        return view('pages.user.create', compact('department'));
     }
     public function edit($id)
     {

@@ -154,11 +154,27 @@ class HomeController extends Controller
     //     }
     //     return view('home',compact('complaintsComplete','totalComplaints','totalAgents','allTown','typeComp_town','typeComp','total_customer','complaintsPending'));
     // }
+    public function redirect_page()
+    {
+        if(auth()->user()->role == 1)
+        {
+            return redirect('/admin/home');
+        }
+        if(auth()->user()->role == 2)
+        {
+            return redirect('/system/home');
+        }
+        if(auth()->user()->role == 4)
+        {
+            return redirect('/department/home');
+        }
+    }
     public function index(Request $request)
     {
         $user = auth()->user();
         $role = $user->role;
         $agentId = $user->agent->id ?? null;
+        dd($role);
 
         // Count overall complaints and filter if role is agent (role 3)
         $complaintsQuery = Complaints::query();
@@ -213,8 +229,7 @@ class HomeController extends Controller
                 'result' => $result,
             ]);
         }
-
-        $view = $role == 3 ? 'agent_dashboard.home' : 'home';
+        $view = $role == 3 ? 'agent_dashboard.home' : ($role == 4 ? 'department.home' : 'home');
         return view($view, compact(
             'complaintsComplete',
             'totalComplaints',

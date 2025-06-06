@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ComplaintAssignAgent;
+use App\Models\ComplaintAssignDepartment;
 use App\Models\MobileAgent;
 use App\Models\Town;
 use App\Models\ComplaintType;
@@ -13,6 +14,7 @@ use App\Models\Source;
 use App\Models\Customer;
 use App\Models\Priorities;
 use App\Models\SubTown;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\SaveImage;
@@ -39,14 +41,24 @@ class ComplaintController extends Controller
     }
     public function index(Request $request)
     {
-        $complaint = Complaints::with('customer', 'town', 'subtown', 'type', 'prio', 'assignedComplaints')->OrderBy('id', 'DESC');
+        $complaint = Complaints::with('customer', 'town', 'subtown', 'type', 'prio', 'assignedComplaints', 'assignedComplaintsDepartment')->OrderBy('id', 'DESC');
         if ($request->has('search') && $request->search != null && $request->search != '') {
-
-            $complaint = $complaint->where(function ($query) use ($request) {
-                $query->where('comp_num', 'LIKE', '%' . $request->search . '%')
-                    ->orWhere('customer_num', 'LIKE', '%' . $request->search . '%')
-                    ->orWhere('customer_name', 'LIKE', '%' . $request->search . '%');
-            });
+            if (auth()->user()->role == 4) {
+                $complaint = $complaint->whereHas('assignedComplaintsDepartment', function ($query) {
+                    $query->where('user_id', auth()->user()->id);
+                })->where(function ($query) use ($request) {
+                    $query->where('comp_num', 'LIKE', '%' . $request->search . '%')
+                        ->orWhere('customer_num', 'LIKE', '%' . $request->search . '%')
+                        ->orWhere('customer_name', 'LIKE', '%' . $request->search . '%');
+                });
+                // dd($complaint->get()->toArray());
+            } else {
+                $complaint = $complaint->where(function ($query) use ($request) {
+                    $query->where('comp_num', 'LIKE', '%' . $request->search . '%')
+                        ->orWhere('customer_num', 'LIKE', '%' . $request->search . '%')
+                        ->orWhere('customer_name', 'LIKE', '%' . $request->search . '%');
+                });
+            }
             if (count($complaint->get()) < 1) {
                 $customer = Customer::where('customer_id', $request->search)
                     ->orwhere('customer_name', $request->search)->first();
@@ -74,20 +86,25 @@ class ComplaintController extends Controller
             if ($request->status == 1) {
                 // Fetch complaints that have at least one of the relationships
                 $complaint = $complaint->where(function ($query) {
-                    $query->whereHas('assignedComplaints');
+                    $query->whereHas('assignedComplaints')->orWhereHas('assignedComplaintsDepartment');
                 });
             } else {
                 // Fetch complaints that have none of the relationships
                 $complaint = $complaint->where(function ($query) {
-                    $query->whereDoesntHave('assignedComplaints');
+                    $query->whereDoesntHave('assignedComplaints')->whereDoesntHave('assignedComplaintsDepartment');
                 });
             }
         }
-        if(auth()->user()->role == 3)
-        {
-            $complaint = $complaint->whereHas('assignedComplaints',function($query){
-                $query->where('agent_id',auth()->user()->agent->id);
+        if (auth()->user()->role == 3) {
+            $complaint = $complaint->whereHas('assignedComplaints', function ($query) {
+                $query->where('agent_id', auth()->user()->agent->id);
             });
+        }
+        if (auth()->user()->role == 4) {
+            $complaint = $complaint->whereHas('assignedComplaintsDepartment', function ($query) {
+                $query->where('user_id', auth()->user()->id);
+            });
+            // return true;
         }
         $complaint = $complaint->paginate(10)->appends([
             'type_id' => request()->get('type_id'),
@@ -102,8 +119,10 @@ class ComplaintController extends Controller
         }
         $town = Town::all();
         $comptype = ComplaintType::all();
-        if(auth()->user()->role == 3)
-        {
+        if (auth()->user()->role == 4) {
+            return view('department.pages.complaints.index', compact('complaint', 'town', 'comptype'));
+        }
+        if (auth()->user()->role == 3) {
             return view('agent_dashboard.pages.complaints.index', compact('complaint', 'town', 'comptype'));
         }
         // dd($complaint->toArray());
@@ -126,7 +145,6 @@ class ComplaintController extends Controller
         }
 
         return view('pages.complaints.create', compact('customer', 'town', 'type', 'prio', 'subtown', 'subtype', 'source'));
-
     }
     public function store(Request $request)
     {
@@ -174,15 +192,11 @@ class ComplaintController extends Controller
             $response = curl_exec($curl);
 
             curl_close($curl);
-            if(auth()->user()->role == 1)
-            {
+            if (auth()->user()->role == 1) {
                 return redirect()->route('admin.compaints-management.index')->with('success', 'Record created successfully.');
-            }
-            else
-            {
+            } else {
                 return redirect()->route('system.compaints-management.index')->with('success', 'Record created successfully.');
             }
-
         } else {
             return back()->with('error', $valid->errors());
         }
@@ -196,9 +210,10 @@ class ComplaintController extends Controller
         $subtown = SubTown::all();
         $prio = Priorities::all();
         $source = Source::all();
-
+        if (auth()->user()->role == 4) {
+            return view('department.pages.complaints.edit', compact('complaint', 'prio', 'source', 'town', 'type', 'subtype', 'subtown'));
+        }
         return view('pages.complaints.edit', compact('complaint', 'prio', 'source', 'town', 'type', 'subtype', 'subtown'));
-
     }
     public function update(Request $request, $id)
     {
@@ -209,19 +224,14 @@ class ComplaintController extends Controller
                 $data['image'] = $this->complaintImage($request->image);
             }
             Complaints::where('id', $id)->update($data);
-            if(auth()->user()->role == 1)
-            {
+            if (auth()->user()->role == 1) {
                 return redirect()->route('admin.compaints-management.index')->with('success', 'Record Updated successfully.');
-            }
-            else
-            {
+            } else {
                 return redirect()->route('system.compaints-management.index')->with('success', 'Record Updated successfully.');
             }
-
         } else {
             return back()->with('error', $valid->errors());
         }
-
     }
     public function agent_wise_complaints()
     {
@@ -310,7 +320,6 @@ class ComplaintController extends Controller
             $phone = $complaint->phone;
         } else {
             $phone = $complaint->customer->phone;
-
         }
         $curl = curl_init();
 
@@ -345,19 +354,21 @@ class ComplaintController extends Controller
 
         $curl = curl_init();
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://bsms.ufone.com/bsms_v8_api/sendapi-0.3.jsp?id=03348970362&message=le chal gay sms&shortcode=KWSC&lang=urdu&mobilenum=' . $phone . '&password=Smskwsc%402024',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => 'https://bsms.ufone.com/bsms_v8_api/sendapi-0.3.jsp?id=03348970362&message=le chal gay sms&shortcode=KWSC&lang=urdu&mobilenum=' . $phone . '&password=Smskwsc%402024',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                CURLOPT_HTTPHEADER => array(
                     'Cookie: cookiesession1=678B2883C43F88D5E4F3BA5C946B0899'
                 ),
-        )
+            )
         );
 
         $response = curl_exec($curl);
@@ -369,8 +380,31 @@ class ComplaintController extends Controller
     public function detail($id)
     {
         $complaint = Complaints::with('town', 'town.agents')->find($id);
-        return view('pages.complaints.details', compact('complaint'));
-
+        $comp_type = $complaint->type_id;
+        $department_user = User::with('department')
+            ->where('department_id', '!=', 0)
+            ->where('role', 4)
+            ->whereHas('department', function ($query) use ($comp_type) {
+                $query->where('comp_type_id', $comp_type);
+            })
+            ->get();
+        if (auth()->user()->role == 4) {
+            return view('department.pages.complaints.details', compact('complaint', 'department_user'));
+        }
+        return view('pages.complaints.details', compact('complaint', 'department_user'));
+    }
+    public function solved_by_department(Request $request, $id)
+    {
+        $message = null;
+        $complaint = Complaints::find($id);
+        if ($complaint) {
+            $request->merge(['id' => $id]);
+            $request->merge(['status' => 1]);
+            $response = $this->agent_complaints_update($request);
+            $message = json_decode($response->getContent());
+        }
+        // dd($message->message);
+        return redirect()->back()->with('success', $message->message);
     }
     public function assign_complaint($agentId, $complaintId)
     {
@@ -384,6 +418,26 @@ class ComplaintController extends Controller
             return redirect()->back()->with('error', "Already Assigned this Complaint...!");
         }
         return redirect()->route('admin.agent-management.details', $agentId);
+    }
+    public function assign_complaint_department($userId, $complaintId)
+    {
+        $check = ComplaintAssignDepartment::where('complaint_id', $complaintId)->where('user_id', $userId)->first();
+        if ($check == null) {
+            $alreadyAssign = ComplaintAssignDepartment::where('complaint_id', $complaintId)->get();
+            if (count($alreadyAssign) > 0) {
+                foreach ($alreadyAssign as $row) {
+                    $row->delete();
+                }
+            }
+            $check = ComplaintAssignDepartment::create([
+                'complaint_id' => $complaintId,
+                'user_id' => $userId,
+            ]);
+        } else {
+            return redirect()->back()->with('error', "Already Assigned this Complaint...!");
+        }
+        // return redirect()->route('agent-management.details', $userId);
+        return redirect()->back()->with('success', 'Complaint has been assigned to the department.');
     }
     public function report()
     {

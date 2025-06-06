@@ -1,94 +1,15 @@
-@extends('layouts.app')
-
-{{--  @section('content')
-    <div class="row">
-        <div class="col-12">
-            <div class="card my-4">
-                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                        <div class="row">
-                            <div class="col-6">
-                                <h6 class="text-white text-capitalize ps-3">{{ $complaint->title }}'s Agent List</h6>
-                            </div>
-                            <div class="col-6 text-end">
-                                @if (auth()->user()->role == 1)
-                                    <a class="btn bg-gradient-dark mb-0 mr-3"
-                                        href="{{ route('admin.agent-management.create') }}"><i
-                                            class="material-icons text-sm">add</i>&nbsp;&nbsp;<i class="fa fa-user"></i></a>
-                                @else
-                                    <a class="btn bg-gradient-dark mb-0 mr-3"
-                                        href="{{ route('system.agent-management.create') }}"><i
-                                            class="material-icons text-sm">add</i>&nbsp;&nbsp;<i class="fa fa-user"></i></a>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body px-0 pb-2">
-                    <div class="p-0">
-                        <table id="example1" class="table table-bordered align-items-center mb-0">
-                            <thead>
-                                <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Agent</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Town</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Address</th>
-                                    <th class="text-secondary opacity-7">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($complaint->town->agents as $key => $row)
-                                    @if ($row->type_id == $complaint->type_id)
-                                        <tr>
-                                            <td>
-                                                <p class="text-xs font-weight-bold mb-0">{{ $row->user->name }}</p>
-                                                @if ($row->avatar != null)
-                                                    <img src="{{ asset('public/storage/' . $row->avatar) }}"
-                                                        class="img-fluid" style="width: 70px; height: 70px;" />
-                                                @endif
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <p class="text-xs text-secondary mb-0">{{ $row->town->town }}</p>
-                                                <p class="text-xs text-secondary mb-0">{{ $row->town->subtown }}</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-xs text-center font-weight-bold mb-0"> {{ $row->address }}
-                                                </p>
-                                            </td>
-                                           
-                                            <td class="align-middle">
-                                                @if (auth()->user()->role == 1)
-                                                <a href="{{ route('complaints.assign', [$row->id, $complaint->id]) }}"
-                                                    class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
-                                                    data-original-title="Edit user">
-                                                    Assign Complaint
-                                                </a>
-                                                
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endif
-                                @endforeach
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection--}}
-
+@extends('department.layouts.app')
 
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-12">
-                <h2 class="page-title">Grievance Management</h2>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <a href="{{ url()->previous() }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </a>
+                    <h2 class="page-title mb-0">Complaint Management</h2>
+                </div>
                 {{-- <p> Tables with built-in bootstrap styles </p> --}}
                 {{-- <div class="col-12 text-right">
                 <a class="btn btn-primary" href="{{ route('compaints-management.create') }}">add</i>&nbsp;&nbsp;<i
@@ -99,19 +20,17 @@
                         <div class="card shadow">
                             <div class="card-body">
                                 <div class="card-title">
-                                    <h3 class="card-title text-center">Grievance Details</h3>
+                                    <h3 class="card-title text-center">Complaint Details</h3>
                                     <div class="row">
                                         <div class="col-md-6">
 
-                                            <p><strong>Grievance Number:</strong> <span
+                                            <p><strong>Complaint Number:</strong> <span
                                                     id="comp_num">{{ $complaint->comp_num }}</span>
                                             </p>
                                             <p><strong>Title:</strong> <span
                                                     id="title">{{ $complaint->type->title }}</span></p>
                                             <p><strong>Description:</strong> <span
                                                     id="description">{{ $complaint->description }}</span></p>
-                                            <p><strong>Agent Description:</strong> <span
-                                                    id="agent_description">{{ $complaint->agent_description }}</span></p>
                                             <p><strong>Customer Name:</strong> <span
                                                     id="customer_name">{{ $complaint->customer_name }}</span></p>
                                             <p><strong>Phone:</strong> <span id="phone">{{ $complaint->phone }}</span>
@@ -125,19 +44,18 @@
                                         </div>
                                         <div class="col-md-6">
                                             @if ($complaint->image != null)
-                                                <p><strong>Grievance Main Image</strong></p>
                                                 <img src="{{ asset('storage/' . $complaint->image) }}"
                                                     style="width:250px;" />
                                                 <br />
                                             @endif
                                             @if ($complaint->before_image != null)
-                                                <p><strong>Grievance Before Image</strong></p>
+                                                <h4>Before Image</h4>
                                                 <img src="{{ asset('storage/' . $complaint->before_image) }}"
                                                     style="width:250px;" />
                                                 <br />
                                             @endif
                                             @if ($complaint->after_image != null)
-                                                <p><strong>Grievance Before Image</strong></p>
+                                            <h4>After Image</h4>
                                                 <img src="{{ asset('storage/' . $complaint->after_image) }}"
                                                     style="width:250px;" />
                                                 <br />
@@ -170,7 +88,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    {{-- <div class="col-12">
                                         <div class="row">
                                             <div class="col-md-9"></div>
                                             <div class="col-md-3">
@@ -181,14 +99,43 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
+                                    @if ($complaint->status != 1)
+                                        <div class="col-12">
+                                            <h4>Complaint Solve </h4>
+                                            <form method="POST" action="{{ route('deparment.complaint.solved',$complaint->id) }}" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Before Image:</label>
+                                                            <input type="file" name="before_image" class="form-control"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>After Image:</label>
+                                                            <input type="file" name="after_image" class="form-control"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Department Comments:</label>
+                                                            <textarea name="agent_description" class="form-control"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 text-right">
+                                                        <button type="submit" class="btn btn-primary">Solved</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    @endif
                                 </div>
-                                <div class="agents" id="agents">
+                                {{-- <div class="agents" id="agents">
                                     <h5>
                                         {{ $complaint->comp_num }}'s Agent List
                                     </h5>
-                                    {{-- <p class="card-text">With supporting text below as a natural lead-in to additional
-                                    content.</p> --}}
 
                                     <table id="example1" class="table table-bordered align-items-center mb-0">
                                         <thead>
@@ -202,12 +149,10 @@
                                                 <th
                                                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                     Address</th>
-                                                {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Trucks</th> --}}
                                                 <th class="text-secondary opacity-7">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- @if (count($user) > 0) --}}
                                             @foreach ($complaint->town->agents as $key => $row)
                                                 @if ($row->type_id == $complaint->type_id)
                                                     <tr>
@@ -231,9 +176,7 @@
                                                                 {{ $row->address }}
                                                             </p>
                                                         </td>
-                                                        {{-- <td class="align-middle text-center text-sm">
-                                                            <p class="text-xs text-secondary mb-0">{{ count($row->hydrant->vehicles) }}</p>
-                                                        </td> --}}
+
                                                         <td class="align-middle">
                                                             <a href="{{ route('complaints.assign', [$row->id, $complaint->id]) }}"
                                                                 class="text-secondary font-weight-bold text-xs"
@@ -244,13 +187,10 @@
                                                     </tr>
                                                 @endif
                                             @endforeach
-                                            {{-- @else
-                                                No Record Find...
-                                            @endif --}}
                                         </tbody>
                                     </table>
-                                </div>
-                                <div class="department d-none" id="department">
+                                </div> --}}
+                                {{-- <div class="department " id="department">
                                     <h5>
                                         Department List
                                     </h5>
@@ -269,26 +209,16 @@
                                                     <th scope="row">{{ ++$key }}</th>
                                                     <td>{{ $row->name }}</td>
                                                     <td>{{ $row->department->name }}</td>
-                                                    <td>
-                                                        @if ($row->check_assignment($row->id, $complaint->id) > 0)
-                                                            <a href="javascript:void(0)"
-                                                                class="text-secondary font-weight-bold text-xs"
-                                                                data-toggle="tooltip" data-original-title="Edit user">
-                                                                Already Assigned
-                                                            </a>
-                                                        @else
-                                                            <a href="{{ route('complaints.assign.department', [$row->id, $complaint->id]) }}"
-                                                                class="text-secondary font-weight-bold text-xs"
-                                                                data-toggle="tooltip" data-original-title="Edit user">
-                                                                Assign Complaint
-                                                            </a>
-                                                        @endif
-                                                    </td>
+                                                    <td><a href="{{ route('complaints.assign.department', [$row->id, $complaint->id]) }}"
+                                                        class="text-secondary font-weight-bold text-xs"
+                                                        data-toggle="tooltip" data-original-title="Edit user">
+                                                        Assign Complaint
+                                                    </a></td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
-                                </div>
+                                </div> --}}
                                 {{-- <div class="toolbar">
                                 <form class="form">
                                     <div class="form-row">
