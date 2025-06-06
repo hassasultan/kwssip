@@ -60,6 +60,13 @@ class UserController extends Controller
                 'password' => Hash::make($request->password),
             ]);
             $user->role = $request->role;
+            if ($request->has('department_id') && $request->department_id != null && $request->department_id != '') {
+                $user->department_id = $request->department_id;
+            }
+            else
+            {
+                $user->department_id = 0;
+            }
             $user->save();
             return redirect()->route('admin.user-management.index')->with('success', 'Record created successfully.');
         } else {
@@ -83,6 +90,9 @@ class UserController extends Controller
         // $user->role = $request->input('role');
         if (!empty($request->input('password'))) {
             $user->password = Hash::make($request->input('password'));
+        }
+        if ($request->has('department_id') && $request->department_id != null && $request->department_id != '') {
+            $user->department_id = $request->department_id;
         }
         $user->save();
         return redirect()->route('admin.user-management.index')->with('success', 'Record updated successfully.');
