@@ -8,10 +8,10 @@
         <div class="w-100 mb-4 d-flex">
             <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="{{ URL('admin/home') }}">
                 <span class="avatar avatar-sm mt-2">
-                    <img src="{{ asset('assets/images/kwssip.png') }}" class="avatar-img w-50"/>
-                      {{-- <img src="../dist/assets/avatars/face-1.jpg" alt="..." class="avatar-img rounded-circle"> --}}
-                  </span>
-        {{-- <img src="{{ asset('assets/images/unnamed.png') }}" class="avatar-img rounded-circle w-100"/> --}}
+                    <img src="{{ asset('assets/images/kwssip.png') }}" class="avatar-img w-50" />
+                    {{-- <img src="../dist/assets/avatars/face-1.jpg" alt="..." class="avatar-img rounded-circle"> --}}
+                </span>
+                {{-- <img src="{{ asset('assets/images/unnamed.png') }}" class="avatar-img rounded-circle w-100" /> --}}
 
                 {{-- <svg version="1.1" id="logo" class="navbar-brand-img brand-sm" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120"
@@ -54,23 +54,34 @@
                 </a>
                 <ul class="collapse list-unstyled w-100 show" id="ui-elements">
                     <li class="nav-item @if (Route::is('user-management.index')) active @endif">
-                        <a class="nav-link" href="{{ url('admin/user-management') }}"><span class="ml-1 item-text">User Management</span>
+                        <a class="nav-link" href="{{ url('admin/user-management') }}"><span class="ml-1 item-text">User
+                                Management</span>
+                        </a>
+                    </li>
+                    <li class="nav-item @if (Route::is('departments.index')) active @endif">
+                        <a class="nav-link" href="{{ url('admin/departments') }}"><span
+                                class="ml-1 item-text">Department
+                                Management</span>
                         </a>
                     </li>
                     <li class="nav-item @if (Route::is('source-management.index')) active @endif">
-                        <a class="nav-link" href="{{ url('admin/source-management') }}"><span class="ml-1 item-text">Source Management</span>
+                        <a class="nav-link" href="{{ url('admin/source-management') }}"><span
+                                class="ml-1 item-text">Source Management</span>
                         </a>
                     </li>
                     <li class="nav-item @if (Route::is('town-management.index')) active @endif">
-                        <a class="nav-link" href="{{ url('admin/town-management') }}"><span class="ml-1 item-text">Project</span>
+                        <a class="nav-link" href="{{ url('admin/town-management') }}"><span
+                                class="ml-1 item-text">Project</span>
                         </a>
                     </li>
                     <li class="nav-item @if (Route::is('districts.index')) active @endif">
-                        <a class="nav-link" href="{{ url('admin/districts') }}"><span class="ml-1 item-text">District Management</span>
+                        <a class="nav-link" href="{{ url('admin/districts') }}"><span class="ml-1 item-text">District
+                                Management</span>
                         </a>
                     </li>
                     <li class="nav-item @if (Route::is('subtown-management.index')) active @endif">
-                        <a class="nav-link" href="{{ url('admin/subtown-management') }}"><span class="ml-1 item-text"> Project Location</span>
+                        <a class="nav-link" href="{{ url('admin/subtown-management') }}"><span class="ml-1 item-text">
+                                Project Location</span>
                         </a>
                     </li>
                 </ul>
@@ -83,15 +94,18 @@
                 </a>
                 <ul class="collapse list-unstyled w-100 show" id="forms">
                     <li class="nav-item @if (Route::is('agent-management.index')) active @endif">
-                        <a class="nav-link" href="{{ url('admin/agent-management') }}"><span class="ml-1 item-text">Agents Management</span>
+                        <a class="nav-link" href="{{ url('admin/agent-management') }}"><span
+                                class="ml-1 item-text">Agents Management</span>
                         </a>
                     </li>
                     <li class="nav-item @if (Route::is('customer-management.index')) active @endif">
-                        <a class="nav-link" href="{{ url('admin/customer-management') }}"><span class="ml-1 item-text">Customers Management</span>
+                        <a class="nav-link" href="{{ url('admin/customer-management') }}"><span
+                                class="ml-1 item-text">Customers Management</span>
                         </a>
                     </li>
                     <li class="nav-item @if (Route::is('priorities-management.index')) active @endif">
-                        <a class="nav-link" href="{{ url('admin/priorities-management') }}"><span class="ml-1 item-text">Priorities Management</span>
+                        <a class="nav-link" href="{{ url('admin/priorities-management') }}"><span
+                                class="ml-1 item-text">Priorities Management</span>
                         </a>
                     </li>
                 </ul>
@@ -103,15 +117,18 @@
                 </a>
                 <ul class="collapse list-unstyled w-100 show" id="tables">
                     <li class="nav-item @if (Route::is('compaints-management.index')) active @endif">
-                        <a class="nav-link" href="{{ url('admin/compaints-management') }}"><span class="ml-1 item-text">Grievance</span>
+                        <a class="nav-link" href="{{ url('admin/compaints-management') }}"><span
+                                class="ml-1 item-text">Grievance</span>
                         </a>
                     </li>
                     <li class="nav-item @if (Route::is('compaints-type-management.index')) active @endif">
-                        <a class="nav-link" href="{{ url('admin/compaints-type-management') }}"><span class="ml-1 item-text">Grievance Types</span>
+                        <a class="nav-link" href="{{ url('admin/compaints-type-management') }}"><span
+                                class="ml-1 item-text">Grievance Types</span>
                         </a>
                     </li>
                     <li class="nav-item @if (Route::is('subtype-management.index')) active @endif">
-                        <a class="nav-link" href="{{ url('admin/subtype-management') }}"><span class="ml-1 item-text">Grievance SubType</span>
+                        <a class="nav-link" href="{{ url('admin/subtype-management') }}"><span
+                                class="ml-1 item-text">Grievance SubType</span>
                         </a>
                     </li>
                 </ul>
@@ -122,4 +139,3 @@
 
 
 {{-- new Sidebar End --}}
-
