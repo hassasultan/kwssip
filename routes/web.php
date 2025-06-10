@@ -63,6 +63,7 @@ Route::prefix('/admin')->group(function (){
         Route::resource('/compaints-type-management', ComplaintTypeController::class, ['as' => 'admin']);
         Route::get('/compaints-management/details/{id}',[ComplaintController::class,'detail'])->name('admin.compaints-management.details');
         Route::resource('/customer-management', CustomerController::class, ['as' => 'admin']);
+        Route::resource('departments', DepartmentController::class, ['as' => 'admin']);
 
 
         Route::get('/compaints-reports/reports', [ComplaintController::class, 'generate_report'])->name('compaints-reports.reports');
