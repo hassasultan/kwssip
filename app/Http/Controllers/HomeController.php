@@ -174,7 +174,7 @@ class HomeController extends Controller
         $user = auth()->user();
         $role = $user->role;
         $agentId = $user->agent->id ?? null;
-        dd($role);
+        // dd($role);
 
         // Count overall complaints and filter if role is agent (role 3)
         $complaintsQuery = Complaints::query();
