@@ -172,7 +172,7 @@
             const currentUrl = window.location.href;
             $.each(users, function(index, user) {
                 html += '<tr>';
-                html += '<td>' + user.town.town + '</td>';
+                html += '<td>' + (user.town ? user.town.town : 'N/A') + '</td>';
                 html += '<td>' + user.title + '</td>';
                 html += '<td>';
                 html +=
