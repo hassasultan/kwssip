@@ -47,7 +47,7 @@ Route::get('/subtype/by/type', [SubTypeController::class, 'get_subtype'])->name(
 Auth::routes();
 
 //users
-Route::prefix('/admin')->group(function (){
+Route::prefix('admin')->group(function (){
     Route::middleware(['IsAdmin'])->group(function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         Route::resource('/user-management', UserController::class, ['as' => 'admin']);
