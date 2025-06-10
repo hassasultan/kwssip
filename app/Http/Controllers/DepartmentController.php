@@ -13,7 +13,7 @@ class DepartmentController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -50,7 +50,7 @@ class DepartmentController extends Controller
         ]);
 
         Department::create($request->all());
-        return redirect()->route('departments.index')->with('success', 'Department created successfully.');
+        return redirect()->route('admin.departments.index')->with('success', 'Department created successfully.');
     }
 
     /**
@@ -96,7 +96,7 @@ class DepartmentController extends Controller
 
         $department = Department::findOrFail($id);
         $department->update($request->all());
-        return redirect()->route('departments.index')->with('success', 'Department updated successfully.');
+        return redirect()->route('admin.departments.index')->with('success', 'Department updated successfully.');
     }
     public function detail($id)
     {
@@ -121,6 +121,6 @@ class DepartmentController extends Controller
     {
         $department = Department::findOrFail($id);
         $department->delete();
-        return redirect()->route('departments.index')->with('success', 'Department deleted successfully.');
+        return redirect()->route('admin.departments.index')->with('success', 'Department deleted successfully.');
     }
 }

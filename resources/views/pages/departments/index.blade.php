@@ -8,7 +8,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h1>Departments</h1>
-                            <a href="{{ route('departments.create') }}" class="btn btn-primary">Add Department</a>
+                            <a href="{{ route('admin.departments.create') }}" class="btn btn-primary">Add Department</a>
                         </div>
                         @if (session('success'))
                             <div class="alert alert-success">{{ session('success') }}</div>
@@ -29,14 +29,14 @@
                                         <td>{{ $department->description }}</td>
                                         <td>{{ $department->status ? 'Active' : 'Inactive' }}</td>
                                         <td>
-                                            <a href="{{ route('departments.edit', $department->id) }}"
+                                            <a href="{{ route('admin.departments.edit', $department->id) }}"
                                                 class="btn btn-sm btn-warning">Edit</a>
                                             {{-- <a href="{{ route('departments.details', $department->id) }}"
                                                 class="text-secondary font-weight-bold text-xs m-3" data-toggle="tooltip"
                                                 data-original-title="Show Complaints">
                                                 Assigned Complaints
                                             </a> --}}
-                                            <form action="{{ route('departments.destroy', $department->id) }}"
+                                            <form action="{{ route('admin.departments.destroy', $department->id) }}"
                                                 method="POST" style="display:inline-block;">
                                                 @csrf
                                                 @method('DELETE')

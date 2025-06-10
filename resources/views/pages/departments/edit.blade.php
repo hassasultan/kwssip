@@ -7,7 +7,7 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <h1>Edit Department</h1>
-                        <form action="{{ route('departments.update', $department->id) }}" method="POST">
+                        <form action="{{ route('admin.departments.update', $department->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="form-group">

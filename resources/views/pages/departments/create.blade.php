@@ -7,7 +7,7 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <h1>Add Department</h1>
-                        <form action="{{ route('departments.store') }}" method="POST">
+                        <form action="{{ route('admin.departments.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="search" >Type</label>
